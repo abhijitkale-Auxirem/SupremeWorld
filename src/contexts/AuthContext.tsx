@@ -14,10 +14,106 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 const STORAGE_KEY = "supremeworld_auth";
 
-const MOCK_ADMIN_CREDENTIALS = {
-  email: "admin@supremeworld.ai",
-  password: "Admin@1234",
-};
+const DEMO_ACCOUNTS: Array<{ email: string; password: string; user: AuthUser }> = [
+  {
+    email: "admin@supremeworld.ai",
+    password: "Admin@1234",
+    user: {
+      id: "demo_admin",
+      email: "admin@supremeworld.ai",
+      name: "Supreme Admin",
+      username: "supremeadmin",
+      role: "admin",
+      isVerified: true,
+      membershipTier: "elite",
+      createdAt: new Date().toISOString(),
+    },
+  },
+  {
+    email: "entrepreneur@supremeworld.ai",
+    password: "Entrepreneur@1",
+    user: {
+      id: "demo_entrepreneur",
+      email: "entrepreneur@supremeworld.ai",
+      name: "James Okafor",
+      username: "jamesokafor",
+      role: "entrepreneur",
+      isVerified: true,
+      membershipTier: "executive",
+      createdAt: new Date().toISOString(),
+    },
+  },
+  {
+    email: "investor@supremeworld.ai",
+    password: "Investor@123",
+    user: {
+      id: "demo_investor",
+      email: "investor@supremeworld.ai",
+      name: "Faisal Al-Rashid",
+      username: "faisalrashid",
+      role: "investor",
+      isVerified: true,
+      membershipTier: "elite",
+      createdAt: new Date().toISOString(),
+    },
+  },
+  {
+    email: "business@supremeworld.ai",
+    password: "Business@123",
+    user: {
+      id: "demo_business",
+      email: "business@supremeworld.ai",
+      name: "Sarah Mitchell",
+      username: "sarahmitchell",
+      role: "business",
+      isVerified: true,
+      membershipTier: "executive",
+      createdAt: new Date().toISOString(),
+    },
+  },
+  {
+    email: "professional@supremeworld.ai",
+    password: "Professional@1",
+    user: {
+      id: "demo_professional",
+      email: "professional@supremeworld.ai",
+      name: "Priya Sharma",
+      username: "priyasharma",
+      role: "professional",
+      isVerified: true,
+      membershipTier: "networker",
+      createdAt: new Date().toISOString(),
+    },
+  },
+  {
+    email: "creator@supremeworld.ai",
+    password: "Creator@1234",
+    user: {
+      id: "demo_creator",
+      email: "creator@supremeworld.ai",
+      name: "Sana Al-Farsi",
+      username: "sanafarsi",
+      role: "creator",
+      isVerified: true,
+      membershipTier: "networker",
+      createdAt: new Date().toISOString(),
+    },
+  },
+  {
+    email: "premium@supremeworld.ai",
+    password: "Premium@1234",
+    user: {
+      id: "demo_premium",
+      email: "premium@supremeworld.ai",
+      name: "Carlos Rivera",
+      username: "carlosrivera",
+      role: "premium",
+      isVerified: true,
+      membershipTier: "elite",
+      createdAt: new Date().toISOString(),
+    },
+  },
+];
 
 function generateMockUser(data: SignupData): AuthUser {
   return {
@@ -56,32 +152,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = useCallback(async (credentials: LoginCredentials): Promise<boolean> => {
-    // Check admin credentials
-    if (
-      credentials.email === MOCK_ADMIN_CREDENTIALS.email &&
-      credentials.password === MOCK_ADMIN_CREDENTIALS.password
-    ) {
-      const adminUser: AuthUser = {
-        id: "admin_001",
-        email: credentials.email,
-        name: "Supreme Admin",
-        username: "supremeadmin",
-        role: "admin",
-        isVerified: true,
-        membershipTier: "elite",
-        createdAt: new Date().toISOString(),
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(adminUser));
-      setState({ user: adminUser, isAuthenticated: true, isLoading: false });
+    // Check demo accounts first
+    const demoMatch = DEMO_ACCOUNTS.find(
+      (a) => a.email === credentials.email && a.password === credentials.password
+    );
+    if (demoMatch) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(demoMatch.user));
+      setState({ user: demoMatch.user, isAuthenticated: true, isLoading: false });
       return true;
     }
 
-    // Check stored users
+    // Check stored registered users (password not enforced on mock)
     const allUsers = getStoredUsers();
-    const found = allUsers.find(
-      (u) => u.email === credentials.email
-    );
-
+    const found = allUsers.find((u) => u.email === credentials.email);
     if (found) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(found));
       setState({ user: found, isAuthenticated: true, isLoading: false });
