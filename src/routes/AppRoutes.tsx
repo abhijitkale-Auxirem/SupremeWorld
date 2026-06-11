@@ -1,11 +1,13 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import LoaderSkeleton from "@/components/common/LoaderSkeleton";
 import { getRoleRoutes } from "./RoleRoutes";
 import NotFound from "@/pages/NotFound";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { ROLE_DASHBOARD_ROUTES } from "@/constants/roles";
 
 // Public pages
 const Home = lazy(() => import("@/pages/public/Home"));
@@ -41,11 +43,20 @@ const Wrap = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<LoaderSkeleton />}>{children}</Suspense>
 );
 
+/** Redirects authenticated users to their dashboard, otherwise renders the given element */
+function HomeRoute({ element }: { element: React.ReactNode }) {
+  const { isAuthenticated, user, isLoading } = useAuthContext();
+  if (isLoading) return <LoaderSkeleton />;
+  if (isAuthenticated && user) return <Navigate to={ROLE_DASHBOARD_ROUTES[user.role]} replace />;
+  return <>{element}</>;
+}
+
 export default function AppRoutes() {
   return (
     <Routes>
       {/* Public */}
-      <Route path={ROUTES.HOME} element={<Wrap><Home /></Wrap>} />
+      <Route path={ROUTES.HOME} element={<HomeRoute element={<Wrap><Home /></Wrap>} />} />
+      <Route path="/home" element={<HomeRoute element={<Wrap><Home /></Wrap>} />} />
       <Route path={ROUTES.ABOUT} element={<Wrap><About /></Wrap>} />
       <Route path={ROUTES.NETWORKING} element={<Wrap><Networking /></Wrap>} />
       <Route path={ROUTES.INVESTMENTS} element={<Wrap><Investments /></Wrap>} />

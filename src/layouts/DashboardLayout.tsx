@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Building2, Lightbulb, Users, Globe, Calendar, BarChart3,
   TrendingUp, Rocket, DollarSign, PieChart, FileText, Building, Handshake,
   ShoppingBag, Network, BookOpen, Award, Video, Briefcase, Star, Plane,
   Crown, Shield, Lock, Gift, CreditCard, Settings, Bell, MessageSquare,
-  User, Bot, LogOut, Menu, X, ChevronRight,
+  User, Bot, LogOut, Menu, X, ChevronRight, Camera,
 } from "lucide-react";
 import { SIDEBAR_CONFIG, COMMON_SIDEBAR_ITEMS } from "@/constants/sidebarConfig";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -16,6 +16,7 @@ import ConfirmationModal from "@/components/common/ConfirmationModal";
 import { getInitials } from "@/utils/helpers";
 import { cn } from "@/lib/utils";
 import logoMark from "@/assets/images/logo-mark.png";
+import { toast } from "sonner";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard, Building2, Lightbulb, Users, Globe, Calendar, BarChart3,
@@ -25,10 +26,48 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   User, Bot,
 };
 
+/** Avatar component — shows image if available, otherwise initials */
+function UserAvatar({
+  avatar,
+  name,
+  size = "md",
+}: {
+  avatar?: string;
+  name?: string;
+  size?: "sm" | "md" | "lg";
+}) {
+  const sizeClass = {
+    sm: "w-7 h-7 text-xs",
+    md: "w-9 h-9 text-sm",
+    lg: "w-16 h-16 text-xl",
+  }[size];
+
+  if (avatar) {
+    return (
+      <img
+        src={avatar}
+        alt={name ?? "User"}
+        className={cn(sizeClass, "rounded-full object-cover border-2 border-gold/40 flex-shrink-0")}
+      />
+    );
+  }
+  return (
+    <div
+      className={cn(
+        sizeClass,
+        "rounded-full bg-gold/20 border-2 border-gold/40 flex items-center justify-center text-gold font-semibold flex-shrink-0"
+      )}
+    >
+      {name ? getInitials(name) : "U"}
+    </div>
+  );
+}
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
-  const { user, logout } = useAuthContext();
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+  const { user, logout, updateAvatar } = useAuthContext();
   const { unreadCount } = useNotificationContext();
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,9 +75,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const roleSections = user ? SIDEBAR_CONFIG[user.role] : [];
 
   const handleLogoClick = () => {
-    if (user) {
-      navigate(ROLE_DASHBOARD_ROUTES[user.role]);
-    }
+    if (user) navigate(ROLE_DASHBOARD_ROUTES[user.role]);
   };
 
   const handleLogout = () => {
@@ -46,11 +83,49 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     navigate(ROUTES.HOME);
   };
 
+  /** Handle avatar file selection — compress to base64 and persist globally */
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image must be smaller than 5MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const base64 = ev.target?.result as string;
+      // Resize/compress via canvas
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX = 256;
+        const ratio = Math.min(MAX / img.width, MAX / img.height);
+        canvas.width = img.width * ratio;
+        canvas.height = img.height * ratio;
+        const ctx = canvas.getContext("2d");
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const compressed = canvas.toDataURL("image/jpeg", 0.82);
+        updateAvatar(compressed);
+        toast.success("Profile picture updated.");
+      };
+      img.src = base64;
+    };
+    reader.readAsDataURL(file);
+    // reset so same file can be reselected
+    e.target.value = "";
+  };
+
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="p-4 border-b border-sidebar-border">
-        <button onClick={handleLogoClick} className="flex items-center gap-2 w-full">
+        <button onClick={handleLogoClick} className="flex items-center gap-2 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">
           <img src={logoMark} alt="SupremeWorld" className="h-8 w-8 rounded" />
           <span className="font-display font-bold text-lg text-sidebar-foreground">
             Supreme<span className="text-gold">World</span>
@@ -58,20 +133,48 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </button>
       </div>
 
-      {/* User info */}
+      {/* User info with avatar upload */}
       {user && (
         <div className="p-4 border-b border-sidebar-border">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold font-semibold text-sm flex-shrink-0">
-              {getInitials(user.name)}
+            {/* Clickable avatar with camera overlay */}
+            <div className="relative group flex-shrink-0">
+              <UserAvatar avatar={user.avatar} name={user.name} size="md" />
+              <button
+                type="button"
+                onClick={() => avatarInputRef.current?.click()}
+                className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer"
+                aria-label="Change profile picture"
+              >
+                <Camera className="w-3.5 h-3.5 text-white" />
+              </button>
             </div>
-            <div className="overflow-hidden">
+            <div className="overflow-hidden flex-1 min-w-0">
               <p className="text-sidebar-foreground text-sm font-medium truncate">{user.name}</p>
               <p className="text-gold text-xs truncate">{ROLE_LABELS[user.role]}</p>
             </div>
           </div>
+          {/* Quick "Change photo" link */}
+          <button
+            type="button"
+            onClick={() => avatarInputRef.current?.click()}
+            className="mt-2 text-xs text-sidebar-foreground/40 hover:text-gold transition-colors flex items-center gap-1"
+          >
+            <Camera className="w-3 h-3" />
+            Change photo
+          </button>
         </div>
       )}
+
+      {/* Hidden file input */}
+      <input
+        ref={avatarInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleAvatarChange}
+        aria-label="Upload profile picture"
+      />
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto scrollbar-thin p-3 space-y-4">
@@ -211,14 +314,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               <MessageSquare className="w-5 h-5 text-muted-foreground" />
             </Link>
+            {/* Profile link with avatar */}
             <Link
               to={ROUTES.DASHBOARD_PROFILE}
               className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-label="Profile"
             >
-              <div className="w-7 h-7 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center text-gold font-semibold text-xs">
-                {user ? getInitials(user.name) : "U"}
-              </div>
+              <UserAvatar avatar={user?.avatar} name={user?.name} size="sm" />
               <span className="hidden sm:block text-sm font-medium text-foreground/80 max-w-[120px] truncate">
                 {user?.name}
               </span>

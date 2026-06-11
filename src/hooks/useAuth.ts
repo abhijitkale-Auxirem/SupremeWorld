@@ -28,5 +28,6 @@ export function useAuth() {
     redirectToDashboard,
     redirectToHome,
     getDashboardRoute,
+    updateAvatar: auth.updateAvatar,
   };
 }

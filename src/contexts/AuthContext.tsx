@@ -8,6 +8,7 @@ interface AuthContextValue extends AuthState {
   signup: (data: SignupData) => Promise<boolean>;
   logout: () => void;
   updateUser: (updates: Partial<AuthUser>) => void;
+  updateAvatar: (base64: string) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -208,9 +209,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const updateAvatar = useCallback((base64: string) => {
+    setState((prev) => {
+      if (!prev.user) return prev;
+      const updated = { ...prev.user, avatar: base64 };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      // Also persist avatar separately for cross-session consistency
+      localStorage.setItem(`supremeworld_avatar_${prev.user.id}`, base64);
+      return { ...prev, user: updated };
+    });
+  }, []);
+
   return (
     <AuthContext.Provider
-      value={{ ...state, login, signup, logout, updateUser }}
+      value={{ ...state, login, signup, logout, updateUser, updateAvatar }}
     >
       {children}
     </AuthContext.Provider>

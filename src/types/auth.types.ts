@@ -17,7 +17,7 @@ export interface AuthUser {
   phone?: string;
   countryCode?: string;
   isVerified: boolean;
-  membershipTier: "free" | "standard" | "premium" | "elite";
+  membershipTier: "free" | "networker" | "executive" | "elite";
   createdAt: string;
 }
 
