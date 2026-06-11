@@ -56,14 +56,14 @@ export default function Events() {
       <section className="py-20 bg-royal-black">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
+            <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
               <Calendar className="w-3.5 h-3.5" />
               1,200+ Events Hosted Globally
             </div>
-            <h1 className="font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Events Built for <span className="text-gold">Global Leaders</span>
+            <h1 className="animate-hero-text delay-200 font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Events Built for <span className="gold-text-shimmer">Global Leaders</span>
             </h1>
-            <p className="text-white/60 text-xl leading-relaxed mb-8">
+            <p className="animate-fade-in delay-400 text-white/60 text-xl leading-relaxed mb-8">
               World-class summits, exclusive galas, investor forums, and workshops designed to accelerate your network, deals, and growth.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -78,14 +78,14 @@ export default function Events() {
               </Button>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 max-w-3xl mx-auto stagger-children">
             {[
               { v: "1,200+", l: "Events Hosted" },
               { v: "28", l: "Countries" },
               { v: "180K+", l: "Total Attendees" },
               { v: "4.9/5", l: "Avg. Rating" },
             ].map((s) => (
-              <div key={s.l} className="text-center py-4 px-2 rounded-xl bg-white/5 border border-white/10">
+              <div key={s.l} className="animate-count-up text-center py-4 px-2 rounded-xl bg-white/5 border border-white/10 hover:border-gold/20 transition-colors">
                 <p className="font-display text-2xl font-bold text-gold">{s.v}</p>
                 <p className="text-white/50 text-xs mt-1">{s.l}</p>
               </div>
@@ -98,9 +98,9 @@ export default function Events() {
       <section className="py-20 bg-background">
         <div className="container">
           <h2 className="font-display text-2xl font-bold text-foreground mb-8">Flagship Events 2026</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 stagger-children">
             {EVENTS.filter((e) => e.featured).map((ev) => (
-              <div key={ev.id} className="rounded-xl border border-gold/30 bg-card ring-1 ring-gold/10 shadow-md hover:shadow-lg transition-all flex flex-col">
+              <div key={ev.id} className="animate-fade-in-up hover-lift rounded-xl border border-gold/30 bg-card ring-1 ring-gold/10 shadow-md hover:shadow-xl transition-all flex flex-col">
                 <div className="p-6 flex-1">
                   <div className="flex items-start justify-between mb-4">
                     <span className="px-2 py-0.5 bg-gold/10 text-gold text-xs font-bold rounded capitalize">{ev.type}</span>
@@ -149,9 +149,9 @@ export default function Events() {
           {filtered.length === 0 ? (
             <EmptyState type="search" title="No Events Found" description={`No events match "${search}". Try a different search or reset the filter.`} actionLabel="Reset Filters" onAction={() => { setSearchRaw(""); setCat(""); }} />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
               {filtered.map((ev) => (
-                <div key={ev.id} className="p-6 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all flex flex-col">
+                <div key={ev.id} className="animate-fade-in-up hover-lift p-6 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all flex flex-col">
                   <div className="flex items-start justify-between mb-3">
                     <span className="px-2 py-0.5 bg-muted text-muted-foreground text-xs font-semibold rounded capitalize">{ev.type}</span>
                     <span className={`text-sm font-bold ${ev.isFree ? "text-success" : "text-gold"}`}>{ev.price}</span>

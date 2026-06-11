@@ -62,18 +62,18 @@ export default function Networking() {
       <section className="py-20 bg-royal-black">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
+            <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
               <Globe className="w-3.5 h-3.5" />
               150,000+ Verified Members · 80+ Countries
             </div>
-            <h1 className="font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Global <span className="text-gold">Networking</span><br />Without Borders
+            <h1 className="animate-hero-text delay-200 font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Global <span className="gold-text-shimmer">Networking</span><br />Without Borders
             </h1>
-            <p className="text-white/60 text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="animate-fade-in delay-400 text-white/60 text-xl leading-relaxed mb-8 max-w-2xl mx-auto">
               Connect with the world's most accomplished entrepreneurs, investors, executives, and professionals through AI-powered relationship intelligence.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8" asChild>
+            <div className="animate-fade-in delay-500 flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8 transition-all duration-300 hover:scale-105" asChild>
                 <Link to={ROUTES.SIGNUP}>
                   Start Connecting
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -85,14 +85,14 @@ export default function Networking() {
             </div>
           </div>
           {/* Quick stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-3xl mx-auto stagger-children">
             {[
               { v: "150K+", l: "Members" },
               { v: "80+", l: "Countries" },
               { v: "2.8M+", l: "Connections Made" },
               { v: "94%", l: "Connection Rate" },
             ].map((s) => (
-              <div key={s.l} className="text-center py-4 px-2 rounded-xl bg-white/5 border border-white/10">
+              <div key={s.l} className="animate-count-up text-center py-4 px-2 rounded-xl bg-white/5 border border-white/10 hover:border-gold/20 transition-colors">
                 <p className="font-display text-2xl font-bold text-gold">{s.v}</p>
                 <p className="text-white/50 text-xs mt-1">{s.l}</p>
               </div>
@@ -117,9 +117,9 @@ export default function Networking() {
           {filtered.length === 0 ? (
             <EmptyState type="search" title="No Members Found" description={`No members match "${search}". Try a different search term or reset the filters.`} actionLabel="Reset Search" onAction={() => { setSearchRaw(""); setCategory(""); }} />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
               {filtered.map((m) => (
-                <div key={m.name} className="p-6 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group">
+                <div key={m.name} className="animate-fade-in-up hover-lift p-6 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="relative">
                       <img src={m.img} alt={m.name} className="w-14 h-14 rounded-full bg-gold/10" />
@@ -169,9 +169,9 @@ export default function Networking() {
               Purpose-built for executive-level relationship building — not generic social media.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
             {TOOLS.map((t) => (
-              <div key={t.title} className="p-6 rounded-xl bg-card border border-border hover:border-gold/40 hover:shadow-md transition-all group">
+              <div key={t.title} className="animate-fade-in-up hover-lift p-6 rounded-xl bg-card border border-border hover:border-gold/40 hover:shadow-md transition-all group">
                 <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors">
                   <t.icon className="w-6 h-6 text-gold" />
                 </div>
@@ -189,9 +189,9 @@ export default function Networking() {
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl font-bold text-white mb-3">Real Results from <span className="text-gold">Real Members</span></h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto stagger-children">
             {TESTIMONIALS.map((t) => (
-              <div key={t.name} className="glass-card p-6 rounded-xl space-y-4">
+              <div key={t.name} className="animate-scale-in hover-lift glass-card p-6 rounded-xl space-y-4">
                 <div className="flex gap-0.5 mb-1">
                   {Array(5).fill(0).map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-gold text-gold" />

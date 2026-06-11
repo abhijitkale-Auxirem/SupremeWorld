@@ -50,12 +50,12 @@ export default function Blog() {
       <section className="py-20 bg-royal-black">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
+            <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
               <BookOpen className="w-3.5 h-3.5" />
               Business Intelligence & Insights
             </div>
-            <h1 className="font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              SupremeWorld <span className="text-gold">Insights</span>
+            <h1 className="animate-hero-text delay-200 font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              SupremeWorld <span className="gold-text-shimmer">Insights</span>
             </h1>
             <p className="text-white/60 text-xl leading-relaxed mb-6">
               Business intelligence, investment trends, executive leadership, and lifestyle editorial from our global community of practitioners.
@@ -72,7 +72,7 @@ export default function Blog() {
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">Featured Articles</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Large featured */}
-              <article className="lg:col-span-2 rounded-xl overflow-hidden border border-gold/20 bg-card hover:shadow-lg transition-all group cursor-pointer">
+              <article className="lg:col-span-2 animate-fade-in-left hover-lift rounded-xl overflow-hidden border border-gold/20 bg-card hover:shadow-xl transition-all group cursor-pointer">
                 <div className="relative h-56 overflow-hidden">
                   <img src={featured[0].img} alt={featured[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
@@ -95,9 +95,9 @@ export default function Blog() {
               </article>
 
               {/* Side featured stack */}
-              <div className="space-y-5">
+              <div className="space-y-5 stagger-children">
                 {featured.slice(1, 3).map((p) => (
-                  <article key={p.id} className="rounded-xl overflow-hidden border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group cursor-pointer flex flex-col">
+                  <article key={p.id} className="animate-fade-in-right hover-lift rounded-xl overflow-hidden border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group cursor-pointer flex flex-col">
                     <div className="relative h-32 overflow-hidden">
                       <img src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -136,9 +136,9 @@ export default function Blog() {
           {filtered.length === 0 ? (
             <EmptyState type="search" title="No Articles Found" description={`No articles match "${search}". Try a different keyword or clear the topic filter.`} actionLabel="Clear Filters" onAction={() => { setSearchRaw(""); setCat(""); }} />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
               {(search || cat ? filtered : regular).map((p) => (
-                <article key={p.id} className="rounded-xl overflow-hidden border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group cursor-pointer flex flex-col">
+                <article key={p.id} className="animate-fade-in-up hover-lift rounded-xl overflow-hidden border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group cursor-pointer flex flex-col">
                   <div className="relative h-40 overflow-hidden">
                     <img src={p.img} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />

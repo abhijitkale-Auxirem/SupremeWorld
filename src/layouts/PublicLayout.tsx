@@ -83,7 +83,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                     <ChevronDown className="w-3.5 h-3.5" />
                   </button>
                   {openDropdown === link.label && (
-                    <div className="absolute top-full left-0 mt-1 w-48 rounded-lg border border-border bg-card shadow-lg py-1 animate-fade-in">
+                    <div className="absolute top-full left-0 mt-1 w-48 rounded-lg border border-border bg-card shadow-xl shadow-black/10 py-1 animate-nav-dropdown">
                       {link.children.map((child) => (
                         <Link
                           key={child.href}
@@ -148,7 +148,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
         {/* Mobile Nav */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-border bg-card animate-fade-in">
+          <div className="lg:hidden border-t border-border bg-card animate-slide-in-bottom">
             <div className="container py-4 space-y-1">
               {NAV_LINKS.map((link) =>
                 "children" in link ? (
@@ -199,7 +199,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         )}
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 animate-fade-in">{children}</main>
 
       {/* Footer */}
       <footer className="bg-royal-black text-white border-t border-royal-black-lighter">

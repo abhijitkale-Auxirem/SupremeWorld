@@ -50,12 +50,12 @@ export default function Pricing() {
       {/* Hero */}
       <section className="py-20 bg-royal-black">
         <div className="container text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
+          <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
             <Star className="w-3.5 h-3.5" />
             Transparent Pricing · No Hidden Fees
           </div>
-          <h1 className="font-display text-5xl lg:text-6xl font-bold text-white mb-6">
-            Membership <span className="text-gold">Pricing</span>
+          <h1 className="animate-hero-text delay-200 font-display text-5xl lg:text-6xl font-bold text-white mb-6">
+            Membership <span className="gold-text-shimmer">Pricing</span>
           </h1>
           <p className="text-white/60 text-xl max-w-2xl mx-auto mb-8">
             Choose the plan that matches your ambition. Upgrade or downgrade at any time. Cancel anytime.
@@ -74,9 +74,9 @@ export default function Pricing() {
       {/* Plan cards */}
       <section className="py-16 bg-background">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 stagger-children">
             {MEMBERSHIP_PLANS.map((plan) => (
-              <div key={plan.id} className={cn("relative rounded-2xl border-2 p-6 flex flex-col bg-card transition-shadow hover:shadow-xl", plan.color, plan.isPopular && "shadow-lg shadow-gold/10 ring-1 ring-gold/20")}>
+              <div key={plan.id} className={cn("animate-fade-in-up hover-lift relative rounded-2xl border-2 p-6 flex flex-col bg-card transition-all hover:shadow-xl", plan.color, plan.isPopular && "shadow-lg shadow-gold/10 ring-1 ring-gold/20")}>
                 {plan.isPopular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="px-3 py-1 bg-gold text-royal-black text-xs font-bold rounded-full">Most Popular</span>

@@ -72,18 +72,18 @@ export default function Marketplace() {
       <section className="py-20 bg-royal-black">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
+            <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
               <ShoppingBag className="w-3.5 h-3.5" />
               2,400+ Verified Products & Services
             </div>
-            <h1 className="font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              The <span className="text-gold">Premium Marketplace</span><br />for Business Excellence
+            <h1 className="animate-hero-text delay-200 font-display text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              The <span className="gold-text-shimmer">Premium Marketplace</span><br />for Business Excellence
             </h1>
-            <p className="text-white/60 text-xl leading-relaxed mb-8">
+            <p className="animate-fade-in delay-400 text-white/60 text-xl leading-relaxed mb-8">
               Buy and sell premium digital products, professional services, luxury goods, and subscriptions with verified global sellers.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8" asChild>
+            <div className="animate-fade-in delay-500 flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8 transition-all duration-300 hover:scale-105" asChild>
                 <Link to={ROUTES.SIGNUP}>
                   Start Shopping
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -94,14 +94,14 @@ export default function Marketplace() {
               </Button>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 max-w-3xl mx-auto stagger-children">
             {[
               { v: "2,400+", l: "Products Listed" },
               { v: "840+", l: "Verified Sellers" },
               { v: "28K+", l: "Orders Completed" },
               { v: "4.8/5", l: "Avg. Rating" },
             ].map((s) => (
-              <div key={s.l} className="text-center py-4 px-2 rounded-xl bg-white/5 border border-white/10">
+              <div key={s.l} className="animate-count-up text-center py-4 px-2 rounded-xl bg-white/5 border border-white/10 hover:border-gold/20 transition-colors">
                 <p className="font-display text-2xl font-bold text-gold">{s.v}</p>
                 <p className="text-white/50 text-xs mt-1">{s.l}</p>
               </div>
@@ -113,9 +113,9 @@ export default function Marketplace() {
       {/* Trust features */}
       <section className="py-12 bg-muted/30 border-b border-border">
         <div className="container">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger-children">
             {TRUST_FEATURES.map((f) => (
-              <div key={f.title} className="flex gap-4 p-4 rounded-xl bg-card border border-border">
+              <div key={f.title} className="animate-fade-in-up hover-lift flex gap-4 p-4 rounded-xl bg-card border border-border hover:border-gold/30 transition-all">
                 <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
                   <f.icon className="w-5 h-5 text-gold" />
                 </div>
@@ -161,9 +161,9 @@ export default function Marketplace() {
           {filtered.length === 0 ? (
             <EmptyState type="search" title="No Products Found" description={`No products match "${search}". Try a different keyword or clear the filters.`} actionLabel="Clear Filters" onAction={() => { setSearchRaw(""); setCat(""); }} />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 stagger-children">
               {filtered.map((p) => (
-                <div key={p.id} className="p-5 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all flex flex-col group">
+                <div key={p.id} className="animate-fade-in-up hover-lift p-5 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all flex flex-col group">
                   <div className="flex items-start justify-between mb-3">
                     <span className="px-2 py-0.5 bg-muted text-muted-foreground text-xs font-medium rounded capitalize">{p.category}</span>
                     {p.badge && <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${badgeColor[p.badge] ?? "bg-muted text-muted-foreground"}`}>{p.badge}</span>}

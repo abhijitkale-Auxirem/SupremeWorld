@@ -57,25 +57,28 @@ export default function About() {
         style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center top" }}
       >
         <div className="absolute inset-0 bg-royal-black/82" />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute bottom-0 left-1/3 w-96 h-96 rounded-full bg-gold/5 blur-3xl animate-float" />
+        </div>
         <div className="container relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
+          <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
             <Globe className="w-3.5 h-3.5" />
             Our Story
           </div>
-          <h1 className="font-display text-5xl lg:text-6xl font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
-            Built for the World's <span className="text-gold">Most Ambitious</span>
+          <h1 className="animate-hero-text delay-200 font-display text-5xl lg:text-6xl font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
+            Built for the World's <span className="gold-text-shimmer">Most Ambitious</span>
           </h1>
-          <p className="text-white/65 text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+          <p className="animate-fade-in delay-400 text-white/65 text-xl max-w-2xl mx-auto leading-relaxed mb-8">
             SupremeWorld was born from a simple belief: the world's most capable people deserve an ecosystem as extraordinary as their vision.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8" asChild>
+          <div className="animate-fade-in delay-500 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/20" asChild>
               <Link to={ROUTES.SIGNUP}>
                 Join SupremeWorld
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8" asChild>
+            <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 transition-all duration-300" asChild>
               <Link to={ROUTES.PRICING}>View Plans</Link>
             </Button>
           </div>
@@ -85,9 +88,9 @@ export default function About() {
       {/* Stats */}
       <section className="bg-royal-black border-b border-white/10">
         <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 divide-x divide-white/10 stagger-children">
             {STATS.map((s) => (
-              <div key={s.label} className="py-8 px-4 text-center">
+              <div key={s.label} className="py-8 px-4 text-center animate-count-up">
                 <p className="font-display text-2xl lg:text-3xl font-bold text-gold">{s.value}</p>
                 <p className="text-white/50 text-xs mt-1">{s.label}</p>
               </div>
@@ -121,13 +124,13 @@ export default function About() {
           </div>
 
           {/* Values */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-fade-in-up">
             <h2 className="font-display text-3xl font-bold text-foreground mb-3">What We Stand For</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Six principles that guide every decision we make.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
             {VALUES.map((v) => (
-              <div key={v.title} className="p-6 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group">
+              <div key={v.title} className="animate-fade-in-up hover-lift p-6 rounded-xl border border-border bg-card hover:border-gold/40 hover:shadow-md transition-all group">
                 <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors">
                   <v.icon className="w-6 h-6 text-gold" />
                 </div>
@@ -148,13 +151,13 @@ export default function About() {
           </div>
           <div className="relative">
             <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-border md:left-1/2 md:-translate-x-0.5" />
-            <div className="space-y-8">
+            <div className="space-y-8 stagger-children">
               {MILESTONES.map((m, i) => (
-                <div key={m.year} className={`relative flex gap-6 md:items-center ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
+                <div key={m.year} className={`animate-fade-in-up relative flex gap-6 md:items-center ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
                   <div className="hidden md:block md:w-1/2" />
-                  <div className="absolute left-6 md:left-1/2 w-3 h-3 rounded-full bg-gold border-2 border-background md:-translate-x-1.5 mt-1.5 md:mt-0 z-10" />
+                  <div className="absolute left-6 md:left-1/2 w-3 h-3 rounded-full bg-gold border-2 border-background md:-translate-x-1.5 mt-1.5 md:mt-0 z-10 animate-pulse-gold" />
                   <div className={`ml-14 md:ml-0 md:w-1/2 ${i % 2 === 0 ? "md:pl-8" : "md:pr-8"}`}>
-                    <div className="p-5 rounded-xl border border-border bg-card">
+                    <div className="hover-lift p-5 rounded-xl border border-border bg-card hover:border-gold/30 transition-all duration-300">
                       <span className="inline-block px-2 py-0.5 bg-gold/10 text-gold text-xs font-bold rounded mb-2">{m.year}</span>
                       <h3 className="font-display font-semibold text-foreground mb-1">{m.title}</h3>
                       <p className="text-muted-foreground text-sm">{m.desc}</p>
@@ -174,10 +177,10 @@ export default function About() {
             <h2 className="font-display text-3xl font-bold text-foreground mb-3">Leadership Team</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Experienced leaders from global finance, technology, and business driving the platform forward.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto stagger-children">
             {TEAM.map((t) => (
-              <div key={t.name} className="p-6 rounded-xl border border-border bg-card text-center hover:border-gold/40 hover:shadow-md transition-all">
-                <img src={t.img} alt={t.name} className="w-16 h-16 rounded-full mx-auto mb-4 bg-gold/10" />
+              <div key={t.name} className="animate-scale-in hover-lift p-6 rounded-xl border border-border bg-card text-center hover:border-gold/40 hover:shadow-md transition-all group">
+                <img src={t.img} alt={t.name} className="w-16 h-16 rounded-full mx-auto mb-4 bg-gold/10 transition-transform duration-300 group-hover:scale-110" />
                 <h3 className="font-display font-semibold text-foreground">{t.name}</h3>
                 <p className="text-gold text-sm mt-0.5">{t.role}</p>
                 <p className="text-muted-foreground text-xs mt-1">{t.region}</p>

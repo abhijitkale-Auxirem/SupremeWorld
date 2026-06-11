@@ -11,7 +11,7 @@ import { SIDEBAR_CONFIG, COMMON_SIDEBAR_ITEMS } from "@/constants/sidebarConfig"
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useNotificationContext } from "@/contexts/NotificationContext";
 import { ROUTES } from "@/constants/routes";
-import { ROLE_LABELS } from "@/constants/roles";
+import { ROLE_LABELS, ROLE_DASHBOARD_ROUTES } from "@/constants/roles";
 import ConfirmationModal from "@/components/common/ConfirmationModal";
 import { getInitials } from "@/utils/helpers";
 import { cn } from "@/lib/utils";
@@ -168,10 +168,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {sidebarOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
             onClick={() => setSidebarOpen(false)}
           />
-          <aside className="absolute left-0 top-0 h-full w-72 bg-sidebar border-r border-sidebar-border animate-slide-in-right">
+          <aside className="absolute left-0 top-0 h-full w-72 bg-sidebar border-r border-sidebar-border animate-fade-in-left">
             <SidebarContent />
           </aside>
         </div>
@@ -226,7 +226,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6 scrollbar-thin">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-6 scrollbar-thin animate-fade-in">
           {children}
         </main>
       </div>
