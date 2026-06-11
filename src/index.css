@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 220 26% 9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 26% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 26% 9%;
+
+    --primary: 220 26% 9%;
+    --primary-foreground: 43 74% 53%;
+
+    --secondary: 43 74% 53%;
+    --secondary-foreground: 220 26% 9%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 217 91% 38%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 158 64% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 43 74% 53%;
+
+    --radius: 0.5rem;
+
+    /* Gold palette */
+    --gold: 43 74% 53%;
+    --gold-light: 43 74% 68%;
+    --gold-dark: 43 74% 38%;
+
+    /* Royal black */
+    --royal-black: 220 26% 9%;
+    --royal-black-light: 220 20% 14%;
+    --royal-black-lighter: 220 16% 20%;
+
+    /* Deep blue */
+    --deep-blue: 217 91% 38%;
+    --deep-blue-light: 217 91% 52%;
+
+    --sidebar-background: 220 26% 9%;
+    --sidebar-foreground: 0 0% 92%;
+    --sidebar-primary: 43 74% 53%;
+    --sidebar-primary-foreground: 220 26% 9%;
+    --sidebar-accent: 220 20% 14%;
+    --sidebar-accent-foreground: 0 0% 92%;
+    --sidebar-border: 220 16% 20%;
+    --sidebar-ring: 43 74% 53%;
+  }
+
+  .dark {
+    --background: 220 26% 9%;
+    --foreground: 0 0% 92%;
+
+    --card: 220 20% 14%;
+    --card-foreground: 0 0% 92%;
+
+    --popover: 220 20% 14%;
+    --popover-foreground: 0 0% 92%;
+
+    --primary: 43 74% 53%;
+    --primary-foreground: 220 26% 9%;
+
+    --secondary: 220 16% 20%;
+    --secondary-foreground: 0 0% 92%;
+
+    --muted: 220 16% 20%;
+    --muted-foreground: 220 9% 60%;
+
+    --accent: 217 91% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 44%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 16% 20%;
+    --input: 220 16% 20%;
+    --ring: 43 74% 53%;
+
+    --sidebar-background: 220 26% 7%;
+    --sidebar-foreground: 0 0% 92%;
+    --sidebar-primary: 43 74% 53%;
+    --sidebar-primary-foreground: 220 26% 9%;
+    --sidebar-accent: 220 20% 14%;
+    --sidebar-accent-foreground: 0 0% 92%;
+    --sidebar-border: 220 16% 16%;
+    --sidebar-ring: 43 74% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.3;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+
+  .text-gold-light {
+    color: hsl(var(--gold-light));
+  }
+
+  .bg-royal-black {
+    background-color: hsl(var(--royal-black));
+  }
+
+  .bg-royal-black-light {
+    background-color: hsl(var(--royal-black-light));
+  }
+
+  .bg-gold {
+    background-color: hsl(var(--gold));
+  }
+
+  .border-gold {
+    border-color: hsl(var(--gold));
+  }
+
+  .gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--gold-dark)), hsl(var(--gold)), hsl(var(--gold-light)));
+  }
+
+  .gradient-dark {
+    background: linear-gradient(135deg, hsl(var(--royal-black)), hsl(var(--royal-black-light)));
+  }
+
+  .gradient-hero {
+    background: linear-gradient(
+      135deg,
+      hsl(220 26% 6%) 0%,
+      hsl(220 26% 9%) 40%,
+      hsl(217 60% 18%) 100%
+    );
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+  }
+
+  .gold-border-gradient {
+    border-image: linear-gradient(135deg, hsl(var(--gold-dark)), hsl(var(--gold)), hsl(var(--gold-light))) 1;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--gold)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--gold));
+    border-radius: 2px;
+  }
+}
