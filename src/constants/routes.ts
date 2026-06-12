@@ -13,6 +13,7 @@ export const ROUTES = {
   MEMBERSHIP: "/membership",
   PRICING: "/pricing",
   BLOG: "/blog",
+  BLOG_ARTICLE: "/blog/:id",
   CAREERS: "/careers",
   CONTACT: "/contact",
   HELP_CENTER: "/help",

@@ -23,6 +23,7 @@ const Concierge = lazy(() => import("@/pages/public/Concierge"));
 const Membership = lazy(() => import("@/pages/public/Membership"));
 const Pricing = lazy(() => import("@/pages/public/Pricing"));
 const Blog = lazy(() => import("@/pages/public/Blog"));
+const BlogArticle = lazy(() => import("@/pages/public/BlogArticle"));
 const Careers = lazy(() => import("@/pages/public/Careers"));
 const Contact = lazy(() => import("@/pages/public/Contact"));
 const HelpCenter = lazy(() => import("@/pages/public/HelpCenter"));
@@ -69,6 +70,7 @@ export default function AppRoutes() {
       <Route path={ROUTES.MEMBERSHIP} element={<Wrap><Membership /></Wrap>} />
       <Route path={ROUTES.PRICING} element={<Wrap><Pricing /></Wrap>} />
       <Route path={ROUTES.BLOG} element={<Wrap><Blog /></Wrap>} />
+      <Route path={ROUTES.BLOG_ARTICLE} element={<Wrap><BlogArticle /></Wrap>} />
       <Route path={ROUTES.CAREERS} element={<Wrap><Careers /></Wrap>} />
       <Route path={ROUTES.CONTACT} element={<Wrap><Contact /></Wrap>} />
       <Route path={ROUTES.HELP_CENTER} element={<Wrap><HelpCenter /></Wrap>} />
