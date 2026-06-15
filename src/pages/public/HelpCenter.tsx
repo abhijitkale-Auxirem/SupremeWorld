@@ -18,7 +18,7 @@ interface Article {
   question: string;
   category: string;
   readTime: string;
-  sections: Array<{ heading?: string; body: string; list?: string[] }>;
+  sections: Array<{ heading?: string; body?: string; list?: string[] }>;
 }
 
 const ARTICLES: Article[] = [

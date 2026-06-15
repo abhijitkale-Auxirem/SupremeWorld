@@ -13,7 +13,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { ROUTES } from "@/constants/routes";
 import { ROLE_DESCRIPTIONS, ROLE_LABELS, PROTECTED_ROLES } from "@/constants/roles";
 import { COUNTRY_CODES } from "@/constants/validationRules";
-import { UserRole } from "@/types/auth.types";
+import { UserRole, SignupData } from "@/types/auth.types";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -35,7 +35,7 @@ export default function Signup() {
 
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
-    const success = await signup(data);
+    const success = await signup(data as SignupData);
     setIsLoading(false);
     if (success) {
       toast.success("Account created! Please verify your email.");
@@ -51,7 +51,7 @@ export default function Signup() {
           <Label>I am joining as a...</Label>
           <div className="grid grid-cols-2 gap-2 mt-2">
             {PROTECTED_ROLES.map((role) => (
-              <button key={role} type="button" onClick={() => setValue("role", role as UserRole, { shouldValidate: true })}
+              <button key={role} type="button" onClick={() => setValue("role", role as SignupFormData["role"], { shouldValidate: true })}
                 className={cn("p-2.5 rounded-lg border text-left transition-all text-sm", selectedRole === role ? "border-gold bg-gold/5 text-foreground" : "border-border text-muted-foreground hover:border-border/60")}>
                 <span className="font-medium block">{ROLE_LABELS[role as UserRole]}</span>
               </button>
@@ -114,7 +114,7 @@ export default function Signup() {
         </div>
 
         <div className="flex items-start gap-2">
-          <Checkbox id="terms" checked={!!agreedToTerms} onCheckedChange={(v) => setValue("agreeToTerms", v === true, { shouldValidate: true })} />
+          <Checkbox id="terms" checked={!!agreedToTerms} onCheckedChange={(v) => setValue("agreeToTerms", (v === true) as true, { shouldValidate: true })} />
           <Label htmlFor="terms" className="text-sm font-normal leading-snug cursor-pointer">
             I agree to the{" "}
             <Link to={ROUTES.TERMS_CONDITIONS} className="text-gold hover:underline" target="_blank">Terms & Conditions</Link>{" "}

@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/AuthLayout";
 import { loginSchema, LoginFormData } from "@/lib/validations";
 import { useAuth } from "@/hooks/useAuth";
+import { LoginCredentials } from "@/types/auth.types";
 import { ROUTES } from "@/constants/routes";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -86,7 +87,7 @@ export default function Login() {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    const success = await login(data);
+    const success = await login(data as LoginCredentials);
     setIsLoading(false);
     if (success) {
       toast.success("Welcome back to SupremeWorld.");

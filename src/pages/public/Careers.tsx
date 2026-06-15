@@ -11,26 +11,166 @@ import { useDebounce } from "@/hooks/useDebounce";
 
 const DEPT_CATS = [
   { value: "engineering", label: "Engineering" },
+  { value: "product", label: "Product" },
   { value: "design", label: "Design" },
-  { value: "marketing", label: "Marketing" },
+  { value: "business", label: "Business Development" },
   { value: "investments", label: "Investments" },
-  { value: "community", label: "Community" },
-  { value: "operations", label: "Operations" },
+  { value: "community", label: "Community & Networking" },
+  { value: "education", label: "Education & Learning" },
+  { value: "commerce", label: "Commerce & Marketplace" },
 ];
 
 const JOBS = [
-  { id: 1, title: "Senior Product Designer", department: "design", location: "Remote / Dubai", type: "Full-time", level: "Senior", posted: "2 days ago", description: "Lead the design of new platform features, from discovery and prototyping to final implementation." },
-  { id: 2, title: "Backend Engineer (Node.js / TypeScript)", department: "engineering", location: "Singapore / Remote", type: "Full-time", level: "Mid-Senior", posted: "4 days ago", description: "Build and scale the core platform APIs, real-time data pipelines, and microservice architecture." },
-  { id: 3, title: "Growth Marketing Manager", department: "marketing", location: "London", type: "Full-time", level: "Senior", posted: "1 week ago", description: "Lead member acquisition campaigns across paid, organic, partnerships, and content channels." },
-  { id: 4, title: "Investment Relations Specialist", department: "investments", location: "New York", type: "Full-time", level: "Mid", posted: "1 week ago", description: "Curate and manage the investment deal flow pipeline, working with founders and investors across the platform." },
-  { id: 5, title: "Community Manager (APAC)", department: "community", location: "Singapore / Remote", type: "Full-time", level: "Mid", posted: "3 days ago", description: "Build, moderate, and grow the SupremeWorld community across South-East Asia and the Pacific." },
-  { id: 6, title: "AI/ML Engineer", department: "engineering", location: "Remote", type: "Full-time", level: "Senior", posted: "5 days ago", description: "Develop and improve AI matching models, recommendation engines, and the Supreme AI Assistant." },
-  { id: 7, title: "Senior Frontend Engineer (React/TypeScript)", department: "engineering", location: "Remote", type: "Full-time", level: "Senior", posted: "1 week ago", description: "Build responsive, accessible, and performance-optimized user interfaces for 150,000+ members." },
-  { id: 8, title: "Head of Strategic Partnerships", department: "operations", location: "Dubai / London", type: "Full-time", level: "Director", posted: "2 weeks ago", description: "Develop and manage high-value partnerships with global financial institutions, governments, and corporations." },
-  { id: 9, title: "UX Researcher", department: "design", location: "Remote", type: "Full-time", level: "Mid", posted: "3 days ago", description: "Conduct qualitative and quantitative research to drive evidence-based product and design decisions." },
-  { id: 10, title: "Brand Content Writer", department: "marketing", location: "Remote", type: "Contract", level: "Mid", posted: "1 week ago", description: "Create premium editorial content, thought leadership pieces, and platform communications." },
-  { id: 11, title: "Customer Success Manager (EMEA)", department: "operations", location: "London / Remote", type: "Full-time", level: "Mid-Senior", posted: "5 days ago", description: "Manage the onboarding and success of Executive and Elite members across Europe, Middle East and Africa." },
-  { id: 12, title: "Data Analyst", department: "engineering", location: "Remote", type: "Full-time", level: "Mid", posted: "1 week ago", description: "Analyse platform usage data, member behaviour, and investment metrics to guide strategic decisions." },
+  {
+    id: 1,
+    title: "Startup Ecosystem Manager",
+    department: "business",
+    location: "Remote / Dubai",
+    type: "Full-time",
+    level: "Senior",
+    posted: "2 days ago",
+    description: "Manage startup onboarding, founder engagement, business opportunities, and strategic growth initiatives across the platform."
+  },
+  {
+    id: 2,
+    title: "Senior Frontend Engineer (React/TypeScript)",
+    department: "engineering",
+    location: "Remote",
+    type: "Full-time",
+    level: "Senior",
+    posted: "4 days ago",
+    description: "Develop scalable, responsive, and premium user interfaces for networking, investments, and marketplace modules."
+  },
+  {
+    id: 3,
+    title: "Backend Engineer (Node.js)",
+    department: "engineering",
+    location: "Remote / Singapore",
+    type: "Full-time",
+    level: "Mid-Senior",
+    posted: "3 days ago",
+    description: "Build secure APIs, authentication systems, investment workflows, and enterprise-grade platform services."
+  },
+  {
+    id: 4,
+    title: "Investment Analyst",
+    department: "investments",
+    location: "London / Remote",
+    type: "Full-time",
+    level: "Mid",
+    posted: "1 week ago",
+    description: "Evaluate startups, manage deal flow, analyze investment opportunities, and support investor relations."
+  },
+  {
+    id: 5,
+    title: "Community & Networking Manager",
+    department: "community",
+    location: "Remote",
+    type: "Full-time",
+    level: "Mid",
+    posted: "3 days ago",
+    description: "Build and grow entrepreneur, investor, and professional communities through engagement programs and networking initiatives."
+  },
+  {
+    id: 6,
+    title: "AI/ML Engineer",
+    department: "engineering",
+    location: "Remote",
+    type: "Full-time",
+    level: "Senior",
+    posted: "5 days ago",
+    description: "Develop AI-powered matchmaking, recommendation engines, networking suggestions, and the Supreme AI Assistant."
+  },
+  {
+    id: 7,
+    title: "Product Manager",
+    department: "product",
+    location: "Remote",
+    type: "Full-time",
+    level: "Senior",
+    posted: "1 week ago",
+    description: "Lead product strategy, roadmap planning, and execution for networking, commerce, education, and investment products."
+  },
+  {
+    id: 8,
+    title: "Business Development Manager",
+    department: "business",
+    location: "Dubai / London",
+    type: "Full-time",
+    level: "Senior",
+    posted: "4 days ago",
+    description: "Drive strategic partnerships, corporate collaborations, investor relations, and global business expansion."
+  },
+  {
+    id: 9,
+    title: "UX/UI Designer",
+    department: "design",
+    location: "Remote",
+    type: "Full-time",
+    level: "Mid",
+    posted: "2 days ago",
+    description: "Design premium user experiences across dashboards, communities, events, and lifestyle services."
+  },
+  {
+    id: 10,
+    title: "Content & Brand Strategist",
+    department: "marketing",
+    location: "Remote",
+    type: "Contract",
+    level: "Mid",
+    posted: "1 week ago",
+    description: "Create thought leadership content, platform campaigns, investor communications, and brand storytelling."
+  },
+  {
+    id: 11,
+    title: "Events & Summit Coordinator",
+    department: "operations",
+    location: "Dubai / Remote",
+    type: "Full-time",
+    level: "Mid",
+    posted: "5 days ago",
+    description: "Plan and manage business summits, networking events, leadership conferences, and VIP experiences."
+  },
+  {
+    id: 12,
+    title: "Luxury Travel & Concierge Specialist",
+    department: "premium",
+    location: "Remote",
+    type: "Full-time",
+    level: "Mid",
+    posted: "6 days ago",
+    description: "Manage premium travel experiences, concierge requests, executive services, and VIP member support."
+  },
+  {
+    id: 13,
+    title: "Learning & Certification Manager",
+    department: "education",
+    location: "Remote",
+    type: "Full-time",
+    level: "Mid",
+    posted: "1 week ago",
+    description: "Develop professional learning programs, certifications, mentorship initiatives, and executive education content."
+  },
+  {
+    id: 14,
+    title: "Marketplace Operations Manager",
+    department: "commerce",
+    location: "Remote",
+    type: "Full-time",
+    level: "Mid-Senior",
+    posted: "3 days ago",
+    description: "Oversee digital products, premium services, seller onboarding, transactions, and marketplace operations."
+  },
+  {
+    id: 15,
+    title: "Data Analyst",
+    department: "analytics",
+    location: "Remote",
+    type: "Full-time",
+    level: "Mid",
+    posted: "1 week ago",
+    description: "Analyze networking trends, investment performance, user engagement, and platform growth metrics."
+  }
 ];
 
 const PERKS = [
@@ -60,6 +200,23 @@ export default function Careers() {
     "Mid-Senior": "bg-gold/10 text-gold",
     "Mid": "bg-muted text-muted-foreground",
     "Director": "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+  };
+
+  // NATIVE MAIL CLIENT DISPATCH HANDLER
+  const handleTriggerApplicationMail = (e: React.MouseEvent, jobTitle: string) => {
+    e.stopPropagation(); // Stop the outer container Accordion click from toggling
+    
+    const targetHRInbox = "careers@supremeworld.com";
+    const mailSubject = encodeURIComponent(`Application: ${jobTitle} Role - SupremeWorld Core Team`);
+    const mailBodyLinePayload = encodeURIComponent(
+      `Hello SupremeWorld Talent Acquisition Team,\n\n` +
+      `I am writing to express my formal interest in the open ${jobTitle} position.\n\n` +
+      `Please find attached my professional CV along with my portfolio/GitHub profiles for review.\n\n` +
+      `Best regards,\n[Your Full Name]\n[Your Contact Phone]`
+    );
+
+    // Hard redirect pointer assignment securely invokes native external device desktop mail software
+    window.location.href = `mailto:${targetHRInbox}?subject=${mailSubject}&body=${mailBodyLinePayload}`;
   };
 
   return (
@@ -142,12 +299,25 @@ export default function Careers() {
                         <span className="text-xs text-muted-foreground/70">Posted {j.posted}</span>
                       </div>
                     </div>
-                    <Button size="sm" variant="outline" className="shrink-0 hover:border-gold/50" onClick={(e) => { e.stopPropagation(); }}>Apply Now</Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="shrink-0 hover:border-gold/50 cursor-pointer" 
+                      onClick={(e) => handleTriggerApplicationMail(e, j.title)}
+                    >
+                      Apply Now
+                    </Button>
                   </div>
                   {selectedJob?.id === j.id && (
                     <div className="mt-4 pt-4 border-t border-border">
                       <p className="text-muted-foreground text-sm leading-relaxed mb-3">{j.description}</p>
-                      <Button size="sm" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold">Apply for This Role</Button>
+                      <Button 
+                        size="sm" 
+                        className="bg-gold text-royal-black hover:bg-gold/90 font-semibold cursor-pointer"
+                        onClick={(e) => handleTriggerApplicationMail(e, j.title)}
+                      >
+                        Apply for This Role
+                      </Button>
                     </div>
                   )}
                 </div>

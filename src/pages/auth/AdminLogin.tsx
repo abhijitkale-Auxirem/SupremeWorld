@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginSchema, LoginFormData } from "@/lib/validations";
 import { useAuth } from "@/hooks/useAuth";
+import { LoginCredentials } from "@/types/auth.types";
 import { ROUTES } from "@/constants/routes";
 import { toast } from "sonner";
 import logoMark from "@/assets/images/logo-mark.png";
@@ -25,7 +26,7 @@ export default function AdminLogin() {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    const success = await login(data);
+    const success = await login(data as LoginCredentials);
     setIsLoading(false);
     if (success) {
       toast.success("Admin access granted.");

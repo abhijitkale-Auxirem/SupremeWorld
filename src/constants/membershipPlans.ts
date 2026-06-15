@@ -1,6 +1,6 @@
 export interface MembershipPlan {
   id: string;
-  tier: "free" | "standard" | "premium" | "elite";
+  tier: "free" | "networker" | "executive" | "elite";
   name: string;
   price: number;
   billingPeriod: "monthly" | "annual";
@@ -29,8 +29,8 @@ export const MEMBERSHIP_PLANS: MembershipPlan[] = [
     color: "border-border",
   },
   {
-    id: "standard",
-    tier: "standard",
+    id: "networker",
+    tier: "networker",
     name: "Networker",
     price: 49,
     billingPeriod: "monthly",
@@ -49,8 +49,8 @@ export const MEMBERSHIP_PLANS: MembershipPlan[] = [
     color: "border-deep-blue",
   },
   {
-    id: "premium",
-    tier: "premium",
+    id: "executive",
+    tier: "executive",
     name: "Executive",
     price: 149,
     billingPeriod: "monthly",

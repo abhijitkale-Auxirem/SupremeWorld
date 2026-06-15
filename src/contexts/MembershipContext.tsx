@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { useAuthContext } from "./AuthContext";
 
-type MembershipTier = "free" | "standard" | "premium" | "elite";
+type MembershipTier = "free" | "networker" | "executive" | "elite";
 
 interface MembershipContextValue {
   tier: MembershipTier;
@@ -15,7 +15,7 @@ interface MembershipContextValue {
 
 const TIER_FEATURES: Record<MembershipTier, string[]> = {
   free: ["browse", "basic-profile", "3-communities", "public-events"],
-  standard: [
+  networker: [
     "browse",
     "basic-profile",
     "3-communities",
@@ -26,7 +26,7 @@ const TIER_FEATURES: Record<MembershipTier, string[]> = {
     "investment-browsing",
     "learning-hub",
   ],
-  premium: [
+  executive: [
     "browse",
     "basic-profile",
     "3-communities",
@@ -76,8 +76,8 @@ const TIER_FEATURES: Record<MembershipTier, string[]> = {
 
 const TIER_LABELS: Record<MembershipTier, string> = {
   free: "Explorer",
-  standard: "Networker",
-  premium: "Executive",
+  networker: "Networker",
+  executive: "Executive",
   elite: "Elite",
 };
 
@@ -90,8 +90,8 @@ export function MembershipProvider({ children }: { children: React.ReactNode }) 
   const value = useMemo<MembershipContextValue>(() => ({
     tier,
     isFree: tier === "free",
-    isStandard: tier === "standard",
-    isPremium: tier === "premium",
+    isStandard: tier === "networker",
+    isPremium: tier === "executive",
     isElite: tier === "elite",
     hasFeature: (feature: string) => TIER_FEATURES[tier].includes(feature),
     tierLabel: TIER_LABELS[tier],

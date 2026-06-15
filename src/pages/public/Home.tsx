@@ -444,41 +444,57 @@ export default function Home() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24 bg-background">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-              Your Seat at the <span className="gold-text-shimmer">Supreme Table</span> Awaits
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Join 150,000+ members from 80+ countries building the future together.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-royal-black text-gold border border-gold hover:bg-royal-black-light px-8 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/20 animate-pulse-gold"
-                asChild
-              >
-                <Link to={ROUTES.SIGNUP}>
+      <section className="py-24 bg-background overflow-hidden">
+      <div className="container">
+        <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
+          <h2 className="font-display text-4xl font-bold text-foreground mb-6">
+            Your Seat at the <span className="gold-text-shimmer">Supreme Table</span> Awaits
+          </h2>
+          <p className="text-muted-foreground text-lg mb-8">
+            Join 150,000+ members from 80+ countries building the future together.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {/* Action Button with reduced speed animations */}
+            <Button
+              size="lg"
+              className="relative group overflow-hidden bg-royal-black text-gold border border-gold/40 px-8 py-6 rounded-xl transition-all duration-500 hover:scale-[1.03] hover:text-white hover:border-transparent tracking-wide font-semibold shadow-2xl"
+              asChild
+            >
+              <Link to={ROUTES.SIGNUP}>
+                {/* 1. Left-to-Right Border Glow Track Layer (Slowed down) */}
+                <span className="absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-transparent via-gold to-transparent bg-[length:200%_100%] animate-border-glow-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                
+                {/* 2. Inner Button Dark Mask */}
+                <span className="absolute inset-[1px] bg-royal-black rounded-xl z-0 transition-colors group-hover:bg-royal-black-light" />
+                
+                {/* 3. Left-to-Right Diagonal Mirror Shimmer Effect (Slowed down) */}
+                <span className="absolute top-0 -inset-full h-full w-1/2 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-mirror-sweep-slow z-10 pointer-events-none" />
+
+                {/* Text Content Layer */}
+                <span className="relative z-20 flex items-center gap-2">
                   Create Your Profile
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="px-8 transition-all duration-300 hover:border-gold/50" asChild>
-                <Link to={ROUTES.PRICING}>View Membership Plans</Link>
-              </Button>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-muted-foreground">
-              {["Free to join", "No credit card required", "Cancel anytime"].map((t) => (
-                <span key={t} className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-success" />
-                  {t}
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </span>
-              ))}
-            </div>
+              </Link>
+            </Button>
+
+            <Button size="lg" variant="outline" className="px-8 py-6 rounded-xl transition-all duration-300 hover:border-gold/50" asChild>
+              <Link to={ROUTES.PRICING}>View Membership Plans</Link>
+            </Button>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-sm text-muted-foreground select-none">
+            {["Free to join", "No credit card required", "Cancel anytime"].map((t) => (
+              <span key={t} className="flex items-center gap-1.5 font-medium">
+                <Check className="w-3.5 h-3.5 text-emerald-500" />
+                {t}
+              </span>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
+    </section>
     </PublicLayout>
   );
 }

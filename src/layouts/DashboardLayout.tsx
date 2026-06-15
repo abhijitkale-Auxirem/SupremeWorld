@@ -95,7 +95,7 @@ function VisitWebsiteDropdown() {
 
   return (
     <div ref={ref} className="relative">
-      <button
+      {/* <button
         onClick={() => setOpen((v) => !v)}
         className={cn(
           "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -109,7 +109,7 @@ function VisitWebsiteDropdown() {
         <Globe className="w-4 h-4" />
         <span className="hidden sm:inline">Visit Website</span>
         <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", open && "rotate-180")} />
-      </button>
+      </button> */}
 
       {open && (
         <div className="absolute right-0 top-full mt-2 w-64 bg-popover border border-border rounded-xl shadow-2xl z-50 animate-fade-in overflow-hidden">
@@ -438,15 +438,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           )}
 
           {/* Always-visible quick link */}
-          <Link
+          {/* <Link
             to={ROUTES.HOME}
             onClick={() => setSidebarOpen(false)}
             className="flex items-center gap-3 px-3 py-2.5 mt-1 rounded-lg text-sm font-medium border border-gold/20 text-gold/80 hover:bg-gold/10 hover:text-gold hover:border-gold/40 transition-all duration-200 group"
           >
             <Globe className="w-4 h-4" />
             Visit Public Site
-            <ExternalLink className="w-3.5 h-3.5 ml-auto text-gold/40 group-hover:text-gold/70 transition-colors" />
-          </Link>
+          </Link> */}
         </div>
       </nav>
 

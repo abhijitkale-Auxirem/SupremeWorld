@@ -57,14 +57,14 @@ export default function BusinessLeads() {
     <DashboardLayout>
       <PageHeader title="Leads" description="Manage your sales pipeline." breadcrumbs={[{ label: "Dashboard", href: ROUTES.BUSINESS_DASHBOARD }, { label: "Leads" }]}
         actions={<>
-          <Button variant="outline" onClick={() => { exportToCSV(leads, "leads"); toast.success("Leads exported as CSV."); }}><Download className="w-4 h-4 mr-1.5" />Export CSV</Button>
+          <Button variant="outline" onClick={() => { exportToCSV(leads as unknown as Record<string, unknown>[], "leads"); toast.success("Leads exported as CSV."); }}><Download className="w-4 h-4 mr-1.5" />Export CSV</Button>
           <Button className="bg-gold text-royal-black hover:bg-gold/90"><Plus className="w-4 h-4 mr-1.5" />Add Lead</Button>
         </>}
       />
       <div className="space-y-4">
         <SearchBar onSearch={setSearch} placeholder="Search leads..." className="max-w-sm" />
         <CategorySection categories={STATUS_CATS} selected={status} onSelect={setStatus} label="Filter by Status" />
-        <DataTable columns={cols} data={filtered as Record<string, unknown>[]} searchQuery={search} />
+        <DataTable columns={cols} data={filtered as unknown as Record<string, unknown>[]} searchQuery={search} />
       </div>
       <ConfirmationModal open={!!deleteId} onOpenChange={(o) => !o && setDeleteId(null)} title="Delete Lead" description="This lead record will be permanently deleted." confirmLabel="Delete Lead" onConfirm={() => { setLeads((p) => p.filter((l) => l.id !== deleteId)); setDeleteId(null); toast.success("Lead deleted."); }} />
     </DashboardLayout>

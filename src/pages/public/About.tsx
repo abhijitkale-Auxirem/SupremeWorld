@@ -61,16 +61,16 @@ export default function About() {
           <div className="absolute bottom-0 left-1/3 w-96 h-96 rounded-full bg-gold/5 blur-3xl animate-float" />
         </div>
         <div className="container relative z-10 text-center">
-          <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
+          <div className="animate-fade-in-down delay-100 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold mb-6">
             <Globe className="w-3.5 h-3.5" />
             Our Story
           </div>
           <h1 className="animate-hero-text delay-200 font-display text-5xl lg:text-6xl font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
             Built for the World's <span className="gold-text-shimmer">Most Ambitious</span>
-          </h1>
-          <p className="animate-fade-in delay-400 text-white/65 text-xl max-w-2xl mx-auto leading-relaxed mb-8">
-            SupremeWorld was born from a simple belief: the world's most capable people deserve an ecosystem as extraordinary as their vision.
-          </p>
+          </h1><br></br><br></br><br></br><br></br><br></br>
+          <p className="animate-fade-in delay-400 text-stone-200 text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+  SupremeWorld was born from a simple belief: the world's most capable people deserve an ecosystem as extraordinary as their vision.
+</p>
           <div className="animate-fade-in delay-500 flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/20" asChild>
               <Link to={ROUTES.SIGNUP}>
@@ -170,25 +170,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-24 bg-background">
-        <div className="container">
-          <div className="text-center mb-14">
-            <h2 className="font-display text-3xl font-bold text-foreground mb-3">Leadership Team</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">Experienced leaders from global finance, technology, and business driving the platform forward.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto stagger-children">
-            {TEAM.map((t) => (
-              <div key={t.name} className="animate-scale-in hover-lift p-6 rounded-xl border border-border bg-card text-center hover:border-gold/40 hover:shadow-md transition-all group">
-                <img src={t.img} alt={t.name} className="w-16 h-16 rounded-full mx-auto mb-4 bg-gold/10 transition-transform duration-300 group-hover:scale-110" />
-                <h3 className="font-display font-semibold text-foreground">{t.name}</h3>
-                <p className="text-gold text-sm mt-0.5">{t.role}</p>
-                <p className="text-muted-foreground text-xs mt-1">{t.region}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Press */}
       <section className="py-20 bg-royal-black">

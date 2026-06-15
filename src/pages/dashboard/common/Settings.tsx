@@ -23,10 +23,10 @@ export default function Settings() {
         </form>
         <div className="p-6 rounded-xl border border-border bg-card space-y-4">
           <h3 className="font-display font-semibold">Preferences</h3>
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <div><Label>Dark Mode</Label><p className="text-xs text-muted-foreground mt-0.5">Toggle light/dark theme</p></div>
             <Switch checked={theme === "dark"} onCheckedChange={toggleTheme} />
-          </div>
+          </div> */}
           <div className="flex items-center justify-between">
             <div><Label>Email Notifications</Label><p className="text-xs text-muted-foreground mt-0.5">Receive email alerts</p></div>
             <Switch defaultChecked />
