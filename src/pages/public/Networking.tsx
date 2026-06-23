@@ -18,15 +18,96 @@ const CATEGORIES = [
 ];
 
 const FEATURED_MEMBERS = [
-  { name: "David Osei", role: "Venture Capitalist", country: "Ghana", connections: 2400, industry: "FinTech", type: "investors", verified: true, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=david_vc&backgroundColor=b6e3f4" },
-  { name: "Mei Lin Zhang", role: "Tech Founder", country: "Singapore", connections: 1800, industry: "AI/ML", type: "entrepreneurs", verified: true, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=mei_founder&backgroundColor=d1d4f9" },
-  { name: "Carlos Rivera", role: "Angel Investor", country: "Mexico", connections: 3100, industry: "Real Estate", type: "investors", verified: true, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=carlos_angel&backgroundColor=c0aede" },
-  { name: "Aisha Kamara", role: "Business Strategist", country: "Nigeria", connections: 1200, industry: "Consulting", type: "professionals", verified: true, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=aisha_strat&backgroundColor=ffd5dc" },
-  { name: "Tom Eriksson", role: "Private Equity", country: "Sweden", connections: 2700, industry: "Finance", type: "investors", verified: true, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=tom_pe&backgroundColor=b6e3f4" },
-  { name: "Priya Nair", role: "Startup Advisor", country: "India", connections: 980, industry: "EdTech", type: "professionals", verified: false, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=priya2_adv&backgroundColor=d1d4f9" },
-  { name: "James Okafor", role: "Serial Entrepreneur", country: "UK", connections: 4200, industry: "SaaS", type: "entrepreneurs", verified: true, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=james_ent&backgroundColor=c0aede" },
-  { name: "Sana Al-Farsi", role: "Content Creator", country: "UAE", connections: 890, industry: "Media", type: "creators", verified: false, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=sana_creator&backgroundColor=ffd5dc" },
-  { name: "Hiroshi Tanaka", role: "Corporate Executive", country: "Japan", connections: 1600, industry: "Manufacturing", type: "executives", verified: true, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=hiroshi_exec&backgroundColor=b6e3f4" },
+  { 
+    name: "David Osei", 
+    role: "Venture Capitalist", 
+    country: "Ghana", 
+    connections: 2400, 
+    industry: "FinTech", 
+    type: "investors", 
+    verified: true, 
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Mei Lin Zhang", 
+    role: "Tech Founder", 
+    country: "Singapore", 
+    connections: 1800, 
+    industry: "AI/ML", 
+    type: "entrepreneurs", 
+    verified: true, 
+    img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Carlos Rivera", 
+    role: "Angel Investor", 
+    country: "Mexico", 
+    connections: 3100, 
+    industry: "Real Estate", 
+    type: "investors", 
+    verified: true, 
+    img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Aisha Kamara", 
+    role: "Business Strategist", 
+    country: "Nigeria", 
+    connections: 1200, 
+    industry: "Consulting", 
+    type: "professionals", 
+    verified: true, 
+    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Tom Eriksson", 
+    role: "Private Equity", 
+    country: "Sweden", 
+    connections: 2700, 
+    industry: "Finance", 
+    type: "investors", 
+    verified: true, 
+    img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Priya Nair", 
+    role: "Startup Advisor", 
+    country: "India", 
+    connections: 980, 
+    industry: "EdTech", 
+    type: "professionals", 
+    verified: false, 
+    img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "James Okafor", 
+    role: "Serial Entrepreneur", 
+    country: "UK", 
+    connections: 4200, 
+    industry: "SaaS", 
+    type: "entrepreneurs", 
+    verified: true, 
+    img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Sana Al-Farsi", 
+    role: "Content Creator", 
+    country: "UAE", 
+    connections: 890, 
+    industry: "Media", 
+    type: "creators", 
+    verified: false, 
+    img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Hiroshi Tanaka", 
+    role: "Corporate Executive", 
+    country: "Japan", 
+    connections: 1600, 
+    industry: "Manufacturing", 
+    type: "executives", 
+    verified: true, 
+    img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=400&h=400&fit=crop" 
+  },
 ];
 
 const TOOLS = [
@@ -37,11 +118,25 @@ const TOOLS = [
   { icon: Shield, title: "Verified Profiles", desc: "Every member is identity-verified, ensuring trust and quality in every connection." },
   { icon: TrendingUp, title: "Network Analytics", desc: "Track your connection growth, engagement metrics, and relationship strength over time." },
 ];
-
 const TESTIMONIALS = [
-  { name: "Amara Nwosu", role: "Founder, TechBridge Africa", quote: "I closed a $1.2M seed round within 3 months of joining. The quality of investor connections here is unmatched.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=amara_test&backgroundColor=b6e3f4" },
-  { name: "James Thornton", role: "Managing Partner, Apex Capital", quote: "The deal flow quality is exceptional. The AI matching found me three founders I would never have discovered otherwise.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=james_test&backgroundColor=d1d4f9" },
-  { name: "Priya Sharma", role: "Global HR Director, Fortune 500", quote: "My executive network expanded by 300% in one year. The networking tools here are genuinely premium.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=priya_test&backgroundColor=ffd5dc" },
+  { 
+    name: "Amara Nwosu", 
+    role: "Founder, TechBridge Africa", 
+    quote: "I closed a $1.2M seed round within 3 months of joining. The quality of investor connections here is unmatched.", 
+    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "James Thornton", 
+    role: "Managing Partner, Apex Capital", 
+    quote: "The deal flow quality is exceptional. The AI matching found me three founders I would never have discovered otherwise.", 
+    img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Priya Sharma", 
+    role: "Global HR Director, Fortune 500", 
+    quote: "My executive network expanded by 300% in one year. The networking tools here are genuinely premium.", 
+    img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&h=400&fit=crop" 
+  },
 ];
 
 export default function Networking() {

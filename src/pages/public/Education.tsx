@@ -47,10 +47,30 @@ const LEARNING_PATHS = [
 ];
 
 const INSTRUCTORS = [
-  { name: "James Okafor", bio: "Serial entrepreneur, 3 exits, $180M raised", courses: 4, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=james_edu&backgroundColor=b6e3f4" },
-  { name: "Faisal Al-Rashid", bio: "CIO, 20+ years in private equity and venture", courses: 3, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=faisal_edu&backgroundColor=d1d4f9" },
-  { name: "Priya Sharma", bio: "HR Director Fortune 500, executive coach", courses: 2, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=priya_edu&backgroundColor=ffd5dc" },
-  { name: "David Osei", bio: "VC partner, 40+ startup investments", courses: 5, img: "https://api.dicebear.com/7.x/avataaars/svg?seed=david_edu&backgroundColor=c0aede" },
+  { 
+    name: "James Okafor", 
+    bio: "Serial entrepreneur, 3 exits, $180M raised", 
+    courses: 4, 
+    img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Faisal Al-Rashid", 
+    bio: "CIO, 20+ years in private equity and venture", 
+    courses: 3, 
+    img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Priya Sharma", 
+    bio: "HR Director Fortune 500, executive coach", 
+    courses: 2, 
+    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "David Osei", 
+    bio: "VC partner, 40+ startup investments", 
+    courses: 5, 
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop" 
+  },
 ];
 
 export default function Education() {

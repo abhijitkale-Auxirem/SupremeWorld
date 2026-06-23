@@ -30,17 +30,6 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 /** Public website quick-links shown in topbar dropdown + sidebar */
 const WEBSITE_LINKS = [
   { label: "Home", href: ROUTES.HOME, icon: Home },
-  { label: "Networking", href: ROUTES.NETWORKING, icon: Network },
-  { label: "Investments", href: ROUTES.INVESTMENTS, icon: TrendingUp },
-  { label: "Marketplace", href: ROUTES.MARKETPLACE, icon: ShoppingBag },
-  { label: "Events", href: ROUTES.EVENTS, icon: Calendar },
-  { label: "Education", href: ROUTES.EDUCATION, icon: BookOpen },
-  { label: "Communities", href: ROUTES.COMMUNITIES, icon: Users },
-  { label: "Travel", href: ROUTES.TRAVEL, icon: Plane },
-  { label: "Blog", href: ROUTES.BLOG, icon: Newspaper },
-  { label: "Pricing", href: ROUTES.PRICING, icon: Tag },
-  { label: "Help Center", href: ROUTES.HELP_CENTER, icon: HelpCircle },
-  { label: "Contact", href: ROUTES.CONTACT, icon: MessageSquare },
 ];
 
 /** Avatar component — shows image if available, otherwise initials */
@@ -194,13 +183,13 @@ function WelcomeBanner({ name, onDismiss }: { name: string; onDismiss: () => voi
               {label}
             </Link>
           ))}
-          <Link
+          {/* <Link
             to={ROUTES.HOME}
             className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground border border-border hover:bg-muted/80 transition-colors"
           >
             <Globe className="w-2.5 h-2.5" />
             All Pages
-          </Link>
+          </Link> */}
         </div>
       </div>
 

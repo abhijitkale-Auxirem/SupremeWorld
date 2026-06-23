@@ -57,7 +57,6 @@ export default function EntrepreneurDashboard() {
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${op.status === "Open" ? "bg-success/10 text-success" : "bg-deep-blue/10 text-deep-blue"}`}>
                   {op.status}
                 </span>
-                <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
               </div>
             </div>
           ))}

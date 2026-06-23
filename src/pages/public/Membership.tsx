@@ -64,13 +64,26 @@ const TIER_FEATURES = {
 const tierKey = ["free", "standard", "premium", "elite"] as const;
 
 const TIER_ICONS = { free: Globe, standard: Star, premium: Crown, elite: Shield };
-
 const TESTIMONIALS = [
-  { name: "Kwame Asante", tier: "Executive", quote: "The deal rooms and investor matching paid for the membership in the first month. Exceptional ROI.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=kwame_m&backgroundColor=b6e3f4" },
-  { name: "Sarah Mitchell", tier: "Elite", quote: "My relationship manager handles everything — travel, event tickets, investor introductions. It is genuinely transformative.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=sarah_m&backgroundColor=ffd5dc" },
-  { name: "David Osei", tier: "Networker", quote: "The learning hub alone is worth the subscription. I have completed 4 courses and two certifications.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=david_m&backgroundColor=d1d4f9" },
+  { 
+    name: "Kwame Asante", 
+    tier: "Executive", 
+    quote: "The deal rooms and investor matching paid for the membership in the first month. Exceptional ROI.", 
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Sarah Mitchell", 
+    tier: "Elite", 
+    quote: "My relationship manager handles everything — travel, event tickets, investor introductions. It is genuinely transformative.", 
+    img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "David Osei", 
+    tier: "Networker", 
+    quote: "The learning hub alone is worth the subscription. I have completed 4 courses and two certifications.", 
+    img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop" 
+  },
 ];
-
 export default function Membership() {
   return (
     <PublicLayout>

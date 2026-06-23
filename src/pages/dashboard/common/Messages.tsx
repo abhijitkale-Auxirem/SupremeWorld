@@ -1,6 +1,7 @@
 import DashboardLayout from "@/layouts/DashboardLayout";
 import PageHeader from "@/components/common/PageHeader";
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Send, Plus, UserPlus, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -43,6 +44,7 @@ const INITIAL_MESSAGES: Record<string, Message[]> = {
 };
 
 export default function Messages() {
+  const [searchParams] = useSearchParams();
   const [conversations, setConversations] = useState<Conversation[]>(INITIAL_CONVERSATIONS);
   const [messages, setMessages] = useState<Record<string, Message[]>>(INITIAL_MESSAGES);
   const [active, setActive] = useState("c1");
@@ -52,6 +54,35 @@ export default function Messages() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newName, setNewName] = useState("");
   const [newRole, setNewRole] = useState("Entrepreneur");
+
+  // Auto-open conversation from ?contact= query param (e.g. from Network page Message button)
+  useEffect(() => {
+    const contactName = searchParams.get("contact");
+    const contactRole = searchParams.get("role") ?? "Connection";
+    if (!contactName) return;
+
+    setConversations((prev) => {
+      const existing = prev.find((c) => c.name.toLowerCase() === contactName.toLowerCase());
+      if (existing) {
+        setActive(existing.id);
+        return prev;
+      }
+      // Create a new conversation for this contact
+      const newId = `c_${Date.now()}`;
+      const newConv: Conversation = {
+        id: newId,
+        name: contactName,
+        role: contactRole,
+        lastMsg: "Conversation started.",
+        time: "Just now",
+        unread: 0,
+      };
+      setMessages((m) => ({ ...m, [newId]: [] }));
+      setActive(newId);
+      return [newConv, ...prev];
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Scroll ref anchor point mapping
   const messagesEndRef = useRef<HTMLDivElement | null>(null);

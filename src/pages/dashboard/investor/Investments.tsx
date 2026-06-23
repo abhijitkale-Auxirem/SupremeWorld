@@ -7,6 +7,8 @@ import { exportToCSV } from "@/utils/csvExporter";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 interface InvestmentPosition {
   id: string;
@@ -19,27 +21,39 @@ interface InvestmentPosition {
   investedAt: string;
 }
 
-const INVESTMENTS: InvestmentPosition[] = [
+const INIT_INVESTMENTS: InvestmentPosition[] = [
   { id: "i1", startupName: "FinTechAfrica", amount: 250000, round: "Series A", equity: "14%", currentValue: 330000, status: "active", investedAt: "2025-03-10" },
   { id: "i2", startupName: "AgriSmart AI", amount: 75000, round: "Seed", equity: "13%", currentValue: 88500, status: "active", investedAt: "2025-07-22" },
   { id: "i3", startupName: "LogiChain", amount: 500000, round: "Series A", equity: "11%", currentValue: 780000, status: "active", investedAt: "2024-11-05" },
   { id: "i4", startupName: "EduPlatform", amount: 150000, round: "Seed", equity: "18%", currentValue: 140000, status: "active", investedAt: "2025-01-18" },
 ];
 
+const STATUS_STYLES: Record<string, string> = {
+  active: "bg-emerald-500/10 border-emerald-500/20 text-emerald-500",
+  "on-hold": "bg-gold/10 border-gold/20 text-gold",
+  exited: "bg-muted border-border text-muted-foreground",
+};
+
 export default function InvestorInvestments() {
+  const [investments, setInvestments] = useLocalStorage<InvestmentPosition[]>("investor_investments", INIT_INVESTMENTS);
   const [query, setQuery] = useState("");
 
-  const filteredInvestments = INVESTMENTS.filter((inv) =>
+  const handleStatusChange = (id: string, newStatus: string) => {
+    setInvestments((prev) => prev.map((inv) => inv.id === id ? { ...inv, status: newStatus } : inv));
+    toast.success("Investment status updated.");
+  };
+
+  const filteredInvestments = investments.filter((inv) =>
     inv.startupName.toLowerCase().includes(query.toLowerCase())
   );
 
   // Dynamic Portfolio Macro Aggregators
-  const absoluteTotalCost = INVESTMENTS.reduce((sum, item) => sum + item.amount, 0);
-  const aggregateCurrentAssetValue = INVESTMENTS.reduce((sum, item) => sum + item.currentValue, 0);
+  const absoluteTotalCost = investments.reduce((sum, item) => sum + item.amount, 0);
+  const aggregateCurrentAssetValue = investments.reduce((sum, item) => sum + item.currentValue, 0);
   const macroRoiPercentage = ((aggregateCurrentAssetValue - absoluteTotalCost) / absoluteTotalCost) * 100;
 
   const handleExport = () => {
-    exportToCSV(INVESTMENTS as unknown as Record<string, unknown>[], "investments", [
+    exportToCSV(investments as unknown as Record<string, unknown>[], "investments", [
       { key: "startupName", label: "Company" },
       { key: "round", label: "Round" },
       { key: "amount", label: "Invested" },
@@ -176,11 +190,23 @@ export default function InvestorInvestments() {
                           </span>
                         </td>
 
-                        {/* System Process Status Badges */}
+                        {/* System Process Status — Editable Dropdown */}
                         <td className="p-4 text-center">
-                          <span className="px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-bold rounded-full capitalize">
-                            {inv.status}
-                          </span>
+                          <Select
+                            value={inv.status}
+                            onValueChange={(val) => handleStatusChange(inv.id, val)}
+                          >
+                            <SelectTrigger
+                              className={`h-7 w-28 text-xs font-bold border rounded-full px-2.5 focus:ring-0 focus:ring-offset-0 ${STATUS_STYLES[inv.status] ?? STATUS_STYLES["active"]}`}
+                            >
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="active">Active</SelectItem>
+                              <SelectItem value="on-hold">On Hold</SelectItem>
+                              <SelectItem value="exited">Exited</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </td>
 
                         {/* Historical Timestamp Deployment Date */}

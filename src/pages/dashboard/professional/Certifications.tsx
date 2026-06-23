@@ -1,8 +1,8 @@
-import { useState } from "react";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import PageHeader from "@/components/common/PageHeader";
 import { ROUTES } from "@/constants/routes";
-import { Award, Eye, Play, X } from "lucide-react";
+import { Award, Eye, Play } from "lucide-react";
+import { toast } from "sonner";
 
 interface Certification {
   id: string;
@@ -19,13 +19,17 @@ const CERTS: Certification[] = [
 ];
 
 export default function Certifications() {
-  const [popupMessage, setPopupMessage] = useState<string | null>(null);
-
   const handleAction = (cert: Certification) => {
     if (cert.status === "Earned") {
-      setPopupMessage(`Opening credential file for "${cert.title}". secure link verified.`);
+      toast.success(`Credential verified!`, {
+        description: `Opening "${cert.title}" — issued by ${cert.issuer}.`,
+        duration: 4000,
+      });
     } else {
-      setPopupMessage(`Redirecting to your classroom modules for "${cert.title}".`);
+      toast.info(`Resuming course`, {
+        description: `Redirecting to your classroom modules for "${cert.title}".`,
+        duration: 4000,
+      });
     }
   };
 
@@ -118,30 +122,6 @@ export default function Certifications() {
         </table>
       </div>
 
-      {/* Notification Message Popup Overlay */}
-      {popupMessage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-          <div className="bg-card border border-border p-6 rounded-xl shadow-xl max-w-sm w-full relative">
-            <button 
-              onClick={() => setPopupMessage(null)}
-              className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Close message panel"
-            >
-              <X className="w-4 h-4" />
-            </button>
-            <h4 className="font-semibold text-foreground text-base mb-2">Certification Desk</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              {popupMessage}
-            </p>
-            <button 
-              onClick={() => setPopupMessage(null)}
-              className="w-full bg-gold text-royal-black font-semibold text-xs py-2 rounded-lg hover:bg-gold/90 transition-colors"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </DashboardLayout>
   );
 }

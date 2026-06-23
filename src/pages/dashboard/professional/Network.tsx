@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Eye, MessageSquare, UserCheck, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -56,6 +57,7 @@ const statusStyles: Record<ConnectionStatus, string> = {
 };
 
 export default function ProfessionalNetwork() {
+  const navigate = useNavigate();
   const [connections, setConnections] = useLocalStorage<ProfessionalConnection[]>("professional_network", INITIAL_CONNECTIONS);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"all" | ConnectionStatus>("all");
@@ -101,7 +103,8 @@ export default function ProfessionalNetwork() {
   };
 
   const handleMessage = (connection: ProfessionalConnection) => {
-    toast.success(`Message thread opened for ${connection.name}.`);
+    // Navigate to Messages page and open/create a conversation with this contact
+    navigate(`${ROUTES.DASHBOARD_MESSAGES}?contact=${encodeURIComponent(connection.name)}&role=${encodeURIComponent(connection.role)}`);
   };
 
   const columns: TableColumn<ProfessionalConnection>[] = [

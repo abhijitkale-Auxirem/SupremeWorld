@@ -21,13 +21,26 @@ const HOW_IT_WORKS = [
   { step: "03", title: "Execution", desc: "Our global partner network handles every detail of delivery with complete white-glove care." },
   { step: "04", title: "Post-Service Review", desc: "Rate your experience and provide feedback to ensure continuous improvement of our service delivery." },
 ];
-
 const TESTIMONIALS = [
-  { name: "Lord James Thornton", role: "Managing Partner, Apex Capital", quote: "My relationship manager arranged a last-minute private flight to Geneva, a dinner at Michelin-starred Michel Roux, and a meeting room at a private club — all in 6 hours. Extraordinary.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=james_c&backgroundColor=b6e3f4" },
-  { name: "Priya Kapoor", role: "CEO, TechBridge Asia", quote: "The corporate gifting service is impeccable. Personalised luxury hampers arrived at 12 partner offices across 5 countries simultaneously for our company anniversary.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=priya_c&backgroundColor=ffd5dc" },
-  { name: "Faisal Al-Rashid", role: "Family Office Director", quote: "SupremeWorld Concierge manages my entire executive schedule, travel coordination, and lifestyle calendar. It's as if I have a world-class chief of staff.", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=faisal_c&backgroundColor=d1d4f9" },
+  { 
+    name: "Lord James Thornton", 
+    role: "Managing Partner, Apex Capital", 
+    quote: "My relationship manager arranged a last-minute private flight to Geneva, a dinner at Michelin-starred Michel Roux, and a meeting room at a private club — all in 6 hours. Extraordinary.", 
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Priya Kapoor", 
+    role: "CEO, TechBridge Asia", 
+    quote: "The corporate gifting service is impeccable. Personalised luxury hampers arrived at 12 partner offices across 5 countries simultaneously for our company anniversary.", 
+    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Faisal Al-Rashid", 
+    role: "Family Office Director", 
+    quote: "SupremeWorld Concierge manages my entire executive schedule, travel coordination, and lifestyle calendar. It's as if I have a world-class chief of staff.", 
+    img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&h=400&fit=crop" 
+  },
 ];
-
 const MEMBERSHIP_CTA = [
   { plan: "Executive", price: "$149/mo", features: ["Basic concierge services", "VIP event access", "Corporate gifting", "Priority booking", "Lifestyle curation"] },
   { plan: "Elite", price: "$499/mo", features: ["Dedicated relationship manager", "Private aviation booking", "24/7 personal assistant", "Emergency support", "Executive club access", "Full white-glove service"] },

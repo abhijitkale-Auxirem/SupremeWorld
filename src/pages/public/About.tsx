@@ -15,12 +15,42 @@ const VALUES = [
 ];
 
 const TEAM = [
-  { name: "Kwame Asante", role: "Co-Founder & CEO", region: "Ghana / UAE", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=kwame_ceo&backgroundColor=b6e3f4" },
-  { name: "Mei Lin Zhang", role: "Chief Technology Officer", region: "Singapore", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=meilin_cto&backgroundColor=d1d4f9" },
-  { name: "Sarah Mitchell", role: "Chief Operating Officer", region: "London, UK", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=sarah_coo&backgroundColor=c0aede" },
-  { name: "Faisal Al-Rashid", role: "Chief Investment Officer", region: "Dubai, UAE", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=faisal_cio&backgroundColor=ffd5dc" },
-  { name: "Priya Sharma", role: "VP of Global Partnerships", region: "Mumbai, India", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=priya_vp&backgroundColor=b6e3f4" },
-  { name: "Marcus Thompson", role: "VP of Product", region: "New York, USA", img: "https://api.dicebear.com/7.x/avataaars/svg?seed=marcus_vp&backgroundColor=d1d4f9" },
+  { 
+    name: "Kwame Asante", 
+    role: "Co-Founder & CEO", 
+    region: "Ghana / UAE", 
+    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Mei Lin Zhang", 
+    role: "Chief Technology Officer", 
+    region: "Singapore", 
+    img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Sarah Mitchell", 
+    role: "Chief Operating Officer", 
+    region: "London, UK", 
+    img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Faisal Al-Rashid", 
+    role: "Chief Investment Officer", 
+    region: "Dubai, UAE", 
+    img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Priya Sharma", 
+    role: "VP of Global Partnerships", 
+    region: "Mumbai, India", 
+    img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&h=400&fit=crop" 
+  },
+  { 
+    name: "Marcus Thompson", 
+    role: "VP of Product", 
+    region: "New York, USA", 
+    img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&h=400&fit=crop" 
+  },
 ];
 
 const MILESTONES = [
