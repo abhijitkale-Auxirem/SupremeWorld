@@ -44,20 +44,12 @@ const Wrap = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<LoaderSkeleton />}>{children}</Suspense>
 );
 
-/** Redirects authenticated users to their dashboard, otherwise renders the given element */
-function HomeRoute({ element }: { element: React.ReactNode }) {
-  const { isAuthenticated, user, isLoading } = useAuthContext();
-  if (isLoading) return <LoaderSkeleton />;
-  if (isAuthenticated && user) return <Navigate to={ROLE_DASHBOARD_ROUTES[user.role]} replace />;
-  return <>{element}</>;
-}
-
 export default function AppRoutes() {
   return (
     <Routes>
       {/* Public */}
-      <Route path={ROUTES.HOME} element={<HomeRoute element={<Wrap><Home /></Wrap>} />} />
-      <Route path="/home" element={<HomeRoute element={<Wrap><Home /></Wrap>} />} />
+      <Route path={ROUTES.HOME} element={<Wrap><Home /></Wrap>} />
+      <Route path="/home" element={<Wrap><Home /></Wrap>} />
       <Route path={ROUTES.ABOUT} element={<Wrap><About /></Wrap>} />
       <Route path={ROUTES.NETWORKING} element={<Wrap><Networking /></Wrap>} />
       <Route path={ROUTES.INVESTMENTS} element={<Wrap><Investments /></Wrap>} />

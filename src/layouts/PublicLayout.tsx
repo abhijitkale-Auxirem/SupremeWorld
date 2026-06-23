@@ -7,6 +7,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { ROLE_DASHBOARD_ROUTES } from "@/constants/roles";
 import logoMark from "@/assets/images/logo-mark.png";
 import { cn } from "@/lib/utils";
+import { getProtectedHref } from "@/utils/helpers";
 
 const NAV_LINKS = [
   {
@@ -87,7 +88,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                       {link.children.map((child) => (
                         <Link
                           key={child.href}
-                          to={child.href}
+                          to={isAuthenticated ? getProtectedHref(child.href, user?.role) : child.href}
                           className={cn(
                             "block px-4 py-2 text-sm transition-colors hover:bg-muted",
                             location.pathname === child.href ? "text-gold font-medium" : "text-foreground/80"
@@ -102,7 +103,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               ) : (
                 <Link
                   key={link.label}
-                  to={link.href!}
+                  to={isAuthenticated ? getProtectedHref(link.href!, user?.role) : link.href!}
                   className={cn(
                     "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-muted",
                     location.pathname === link.href ? "text-gold" : "text-foreground/80 hover:text-foreground"
@@ -159,7 +160,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
-                        to={child.href}
+                        to={isAuthenticated ? getProtectedHref(child.href, user?.role) : child.href}
                         className="block px-6 py-2 text-sm text-foreground/80 hover:text-foreground hover:bg-muted rounded-md transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
@@ -170,7 +171,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                 ) : (
                   <Link
                     key={link.label}
-                    to={link.href!}
+                    to={isAuthenticated ? getProtectedHref(link.href!, user?.role) : link.href!}
                     className="block px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-muted rounded-md transition-colors"
                     onClick={() => setMobileOpen(false)}
                   >
@@ -226,7 +227,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                   { label: "Marketplace", href: ROUTES.MARKETPLACE },
                 ].map((l) => (
                   <li key={l.href}>
-                    <Link to={l.href} className="text-white/60 text-sm hover:text-gold transition-colors">
+                    <Link to={isAuthenticated ? getProtectedHref(l.href, user?.role) : l.href} className="text-white/60 text-sm hover:text-gold transition-colors">
                       {l.label}
                     </Link>
                   </li>
@@ -244,7 +245,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                   { label: "Help Center", href: ROUTES.HELP_CENTER },
                 ].map((l) => (
                   <li key={l.href}>
-                    <Link to={l.href} className="text-white/60 text-sm hover:text-gold transition-colors">
+                    <Link to={isAuthenticated ? getProtectedHref(l.href, user?.role) : l.href} className="text-white/60 text-sm hover:text-gold transition-colors">
                       {l.label}
                     </Link>
                   </li>

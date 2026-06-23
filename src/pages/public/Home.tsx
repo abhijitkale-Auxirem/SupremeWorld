@@ -23,6 +23,8 @@ import { Button } from "@/components/ui/button";
 import PublicLayout from "@/layouts/PublicLayout";
 import { ROUTES } from "@/constants/routes";
 import heroBg from "@/assets/images/hero-bg.jpg";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { getProtectedHref } from "@/utils/helpers";
 
 /* ── Platform dropdown pages shown below hero ── */
 const PLATFORM_PAGES = [
@@ -175,6 +177,8 @@ const WHO_FOR = [
 ];
 
 export default function Home() {
+  const { isAuthenticated, user } = useAuthContext();
+
   return (
     <PublicLayout>
       {/* ── Hero ── */}
@@ -232,7 +236,7 @@ export default function Home() {
                 className="bg-gold text-royal-black hover:bg-gold/90 font-semibold text-base px-8 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/20"
                 asChild
               >
-                <Link to={ROUTES.SIGNUP}>
+                <Link to={isAuthenticated ? getProtectedHref(ROUTES.SIGNUP, user?.role) : ROUTES.SIGNUP}>
                   Join SupremeWorld
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
@@ -242,7 +246,7 @@ export default function Home() {
                 className="bg-gold text-royal-black hover:bg-gold/90 font-semibold text-base px-8 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gold/20"
                 asChild
               >
-                <Link to={ROUTES.ABOUT}>Explore the Platform</Link>
+                <Link to={isAuthenticated ? getProtectedHref(ROUTES.ABOUT, user?.role) : ROUTES.ABOUT}>Explore the Platform</Link>
               </Button>
             </div>
           </div>
@@ -293,7 +297,7 @@ export default function Home() {
               {PLATFORM_PAGES.map((page) => (
                 <Link
                   key={page.label}
-                  to={page.href}
+                  to={isAuthenticated ? getProtectedHref(page.href, user?.role) : page.href}
                   className={`group animate-fade-in-up hover-lift relative p-5 rounded-xl border border-border bg-gradient-to-br ${page.color} hover:border-gold/40 transition-all duration-300 flex flex-col`}
                 >
                   <div
@@ -318,17 +322,17 @@ export default function Home() {
           {/* Services group */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-6 h-px bg-deep-blue/50 flex-1 max-w-[40px]" />
-              <span className="text-xs font-semibold text-deep-blue uppercase tracking-widest">
+              <div className="w-6 h-px bg-gold/50 flex-1 max-w-[40px]" />
+              <span className="text-xs font-semibold text-gold uppercase tracking-widest">
                 Services
               </span>
-              <div className="w-6 h-px bg-deep-blue/50 flex-1" />
+              <div className="w-6 h-px bg-gold/50 flex-1" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 stagger-children">
               {SERVICE_PAGES.map((page) => (
                 <Link
                   key={page.label}
-                  to={page.href}
+                  to={isAuthenticated ? getProtectedHref(page.href, user?.role) : page.href}
                   className={`group animate-fade-in-up hover-lift relative p-5 rounded-xl border border-border bg-gradient-to-br ${page.color} hover:border-gold/40 transition-all duration-300 flex items-start gap-4`}
                 >
                   <div
@@ -408,7 +412,7 @@ export default function Home() {
             ].map((feature) => (
               <Link
                 key={feature.label}
-                to={feature.href}
+                to={isAuthenticated ? getProtectedHref(feature.href, user?.role) : feature.href}
                 className="group animate-fade-in-up hover-lift p-6 rounded-xl border border-border bg-card hover:border-gold/50 hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-all duration-300 group-hover:scale-110">
@@ -558,7 +562,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Membership Card */}
             <Link
-              to={ROUTES.MEMBERSHIP}
+              to={isAuthenticated ? getProtectedHref(ROUTES.MEMBERSHIP, user?.role) : ROUTES.MEMBERSHIP}
               className="group animate-fade-in-left hover-lift relative overflow-hidden p-8 rounded-2xl bg-royal-black border border-royal-black-lighter hover:border-gold/40 transition-all duration-300"
             >
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-gold/5 blur-2xl transition-all duration-500 group-hover:w-48 group-hover:h-48 group-hover:bg-gold/10" />
@@ -579,7 +583,7 @@ export default function Home() {
 
             {/* Pricing Card */}
             <Link
-              to={ROUTES.PRICING}
+              to={isAuthenticated ? getProtectedHref(ROUTES.PRICING, user?.role) : ROUTES.PRICING}
               className="group animate-fade-in-right hover-lift relative overflow-hidden p-8 rounded-2xl bg-royal-black border border-royal-black-lighter hover:border-gold/40 transition-all duration-300"
             >
               <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-gold/5 blur-2xl transition-all duration-500 group-hover:w-48 group-hover:h-48 group-hover:bg-gold/10" />
@@ -621,7 +625,7 @@ export default function Home() {
                 className="relative group overflow-hidden bg-royal-black text-gold border border-gold/40 px-8 py-6 rounded-xl transition-all duration-500 hover:scale-[1.03] hover:text-white hover:border-transparent tracking-wide font-semibold shadow-2xl"
                 asChild
               >
-                <Link to={ROUTES.SIGNUP}>
+                <Link to={isAuthenticated ? getProtectedHref(ROUTES.SIGNUP, user?.role) : ROUTES.SIGNUP}>
                   {/* 1. Left-to-Right Border Glow Track Layer (Slowed down) */}
                   <span className="absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-transparent via-gold to-transparent bg-[length:200%_100%] animate-border-glow-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
@@ -645,7 +649,7 @@ export default function Home() {
                 className="px-8 py-6 rounded-xl transition-all duration-300 hover:border-gold/50"
                 asChild
               >
-                <Link to={ROUTES.PRICING}>View Membership Plans</Link>
+                <Link to={isAuthenticated ? getProtectedHref(ROUTES.PRICING, user?.role) : ROUTES.PRICING}>View Membership Plans</Link>
               </Button>
             </div>
 

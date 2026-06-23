@@ -76,3 +76,67 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
     timer = setTimeout(() => fn(...args), delay);
   };
 }
+
+import { ROUTES } from "@/constants/routes";
+import { UserRole } from "@/types/auth.types";
+import { ROLE_DASHBOARD_ROUTES } from "@/constants/roles";
+
+export function getProtectedHref(publicHref: string, role?: UserRole): string {
+  if (!role) return publicHref;
+  
+  const defaultDashboard = ROLE_DASHBOARD_ROUTES[role];
+  
+  switch (publicHref) {
+    case ROUTES.SIGNUP:
+    case ROUTES.LOGIN:
+      return defaultDashboard;
+
+    case ROUTES.MEMBERSHIP:
+    case ROUTES.PRICING:
+      return ROUTES.DASHBOARD_MEMBERSHIP;
+      
+    case ROUTES.NETWORKING:
+    case ROUTES.COMMUNITIES:
+      if (role === "entrepreneur") return ROUTES.ENTREPRENEUR_COMMUNITIES;
+      if (role === "professional") return ROUTES.PROFESSIONAL_NETWORK;
+      if (role === "creator") return ROUTES.CREATOR_AUDIENCE;
+      if (role === "premium") return ROUTES.PREMIUM_PRIVATE_GROUPS;
+      if (role === "admin") return ROUTES.ADMIN_COMMUNITIES;
+      return defaultDashboard;
+      
+    case ROUTES.INVESTMENTS:
+      if (role === "entrepreneur") return ROUTES.ENTREPRENEUR_OPPORTUNITIES;
+      if (role === "investor") return ROUTES.INVESTOR_INVESTMENTS;
+      if (role === "business") return ROUTES.BUSINESS_OPPORTUNITIES;
+      if (role === "premium") return ROUTES.PREMIUM_EXECUTIVE_CLUB;
+      if (role === "admin") return ROUTES.ADMIN_INVESTMENTS;
+      return defaultDashboard;
+      
+    case ROUTES.EDUCATION:
+      if (role === "professional") return ROUTES.PROFESSIONAL_LEARNING;
+      return defaultDashboard;
+      
+    case ROUTES.MARKETPLACE:
+      if (role === "business") return ROUTES.BUSINESS_MARKETPLACE;
+      if (role === "admin") return ROUTES.ADMIN_MARKETPLACE;
+      return defaultDashboard;
+      
+    case ROUTES.TRAVEL:
+      if (role === "premium") return ROUTES.PREMIUM_TRAVEL;
+      return defaultDashboard;
+      
+    case ROUTES.EVENTS:
+      if (role === "entrepreneur") return ROUTES.ENTREPRENEUR_EVENTS;
+      if (role === "premium") return ROUTES.PREMIUM_EVENTS;
+      if (role === "admin") return ROUTES.ADMIN_EVENTS;
+      return defaultDashboard;
+      
+    case ROUTES.CONCIERGE:
+      if (role === "premium") return ROUTES.PREMIUM_CONCIERGE;
+      return defaultDashboard;
+      
+    default:
+      return publicHref;
+  }
+}
+

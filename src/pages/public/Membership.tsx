@@ -5,6 +5,7 @@ import { ROUTES } from "@/constants/routes";
 import { Crown, Star, Shield, Globe, Check, ArrowRight, Zap, Users, TrendingUp, BarChart2 } from "lucide-react";
 import { MEMBERSHIP_PLANS } from "@/constants/membershipPlans";
 import { cn } from "@/lib/utils";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 const TIER_FEATURES = {
   free: [
@@ -85,6 +86,8 @@ const TESTIMONIALS = [
   },
 ];
 export default function Membership() {
+  const { isAuthenticated } = useAuthContext();
+
   return (
     <PublicLayout>
       {/* Hero */}
@@ -103,7 +106,7 @@ export default function Membership() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8" asChild>
-                <Link to={ROUTES.SIGNUP}>Get Started Free</Link>
+                <Link to={isAuthenticated ? ROUTES.DASHBOARD_MEMBERSHIP : ROUTES.SIGNUP}>Get Started Free</Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8" asChild>
                 <Link to={ROUTES.PRICING}>Compare All Plans</Link>
@@ -155,7 +158,7 @@ export default function Membership() {
                     variant={plan.isPopular ? "default" : "outline"}
                     asChild
                   >
-                    <Link to={ROUTES.SIGNUP}>{plan.price === 0 ? "Start for Free" : `Join ${plan.name}`}</Link>
+                    <Link to={isAuthenticated ? ROUTES.DASHBOARD_MEMBERSHIP : ROUTES.SIGNUP}>{plan.price === 0 ? "Start for Free" : `Join ${plan.name}`}</Link>
                   </Button>
                 </div>
               );
@@ -233,7 +236,7 @@ export default function Membership() {
           </div>
           <div className="text-center mt-10">
             <Button size="lg" className="bg-royal-black text-gold border border-gold hover:bg-royal-black-light px-8" asChild>
-              <Link to={ROUTES.SIGNUP}>
+              <Link to={isAuthenticated ? ROUTES.DASHBOARD_MEMBERSHIP : ROUTES.SIGNUP}>
                 Start Free Today
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>

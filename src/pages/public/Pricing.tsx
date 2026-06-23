@@ -6,6 +6,7 @@ import { MEMBERSHIP_PLANS } from "@/constants/membershipPlans";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 const COMPARISON_FEATURES = [
   { feature: "Basic Profile", free: true, networker: true, executive: true, elite: true },
@@ -37,6 +38,7 @@ function FeatureValue({ value }: { value: boolean | string }) {
 }
 
 export default function Pricing() {
+  const { isAuthenticated } = useAuthContext();
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
 
   const getPrice = (price: number) => {
@@ -108,7 +110,7 @@ export default function Pricing() {
                   variant={plan.isPopular ? "default" : "outline"}
                   asChild
                 >
-                  <Link to={ROUTES.SIGNUP}>{plan.price === 0 ? "Get Started Free" : `Start ${plan.name}`}</Link>
+                  <Link to={isAuthenticated ? ROUTES.DASHBOARD_MEMBERSHIP : ROUTES.SIGNUP}>{plan.price === 0 ? "Get Started Free" : `Start ${plan.name}`}</Link>
                 </Button>
               </div>
             ))}
@@ -194,7 +196,7 @@ export default function Pricing() {
           <p className="text-white/60 mb-6">Start free. Upgrade when you are ready. No contracts, no risk.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-8" asChild>
-              <Link to={ROUTES.SIGNUP}>
+              <Link to={isAuthenticated ? ROUTES.DASHBOARD_MEMBERSHIP : ROUTES.SIGNUP}>
                 Create Free Account
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
