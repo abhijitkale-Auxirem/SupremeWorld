@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
@@ -59,6 +60,18 @@ export default function Careers() {
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Prevent background scrolling when application form is active
+  useEffect(() => {
+    if (activeApplicationJob) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeApplicationJob]);
 
   const filtered = JOBS.filter((j) => {
     const matchDept = !dept || j.department === dept;
@@ -247,124 +260,127 @@ export default function Careers() {
       </section>
 
       {/* Application Form Overlay Modal */}
-      {activeApplicationJob && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-xl max-h-[90vh] overflow-y-auto bg-royal-black text-white rounded-2xl border border-gold/20 p-6 md:p-8 shadow-2xl relative">
+      {activeApplicationJob && createPortal(
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 md:p-12 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="w-full max-w-xl max-h-[80vh] flex flex-col bg-royal-black text-white rounded-2xl border border-gold/20 shadow-2xl relative overflow-hidden">
             <button 
-              className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
+              className="absolute top-4 right-4 z-10 text-white/60 hover:text-white transition-colors bg-royal-black/50 rounded-full p-1"
               onClick={() => setActiveApplicationJob(null)}
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
 
-            {formStatus === "success" ? (
-              <div className="text-center py-8 animate-in zoom-in-95 duration-200">
-                <CheckCircle className="w-16 h-16 text-gold mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Application Received</h3>
-                <p className="text-white/60 text-sm max-w-sm mx-auto mb-6">
-                  Thank you for applying for the **{activeApplicationJob}** role. Our Talent Team will evaluate your credentials shortly.
-                </p>
-                <Button className="bg-gold text-royal-black hover:bg-gold/90" onClick={() => setActiveApplicationJob(null)}>
-                  Close Portal Window
-                </Button>
-              </div>
-            ) : (
-              <form onSubmit={handleFormSubmit} className="space-y-5">
-                <div>
-                  <span className="text-xs font-semibold text-gold tracking-wider uppercase">Application Form</span>
-                  <h3 className="text-xl md:text-2xl font-bold mt-1 text-white truncate">🚀 {activeApplicationJob}</h3>
+            <div className="overflow-y-auto py-5 px-6 md:py-6 md:px-8">
+              {formStatus === "success" ? (
+                <div className="text-center py-8 animate-in zoom-in-95 duration-200">
+                  <CheckCircle className="w-16 h-16 text-gold mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold mb-2">Application Received</h3>
+                  <p className="text-white/60 text-sm max-w-sm mx-auto mb-6">
+                    Thank you for applying for the **{activeApplicationJob}** role. Our Talent Team will evaluate your credentials shortly.
+                  </p>
+                  <Button className="bg-gold text-royal-black hover:bg-gold/90" onClick={() => setActiveApplicationJob(null)}>
+                    Close Portal Window
+                  </Button>
                 </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-medium text-white/70 mb-1">Full Name *</label>
-                    <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" placeholder="John Doe" value={formData.fullName} onChange={(e) => setFormData({...formData, fullName: e.target.value})} />
+              ) : (
+                <form onSubmit={handleFormSubmit} className="space-y-4">
+                  <div className="pr-8">
+                    <span className="text-xs font-semibold text-gold tracking-wider uppercase">Application Form</span>
+                    <h3 className="text-xl md:text-2xl font-bold mt-1 text-white truncate">🚀 {activeApplicationJob}</h3>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-3">
                     <div>
-                      <label className="block text-xs font-medium text-white/70 mb-1">Email Address *</label>
-                      <input required type="email" className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" placeholder="john@example.com" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                      <label className="block text-xs font-medium text-white/70 mb-1">Full Name *</label>
+                      <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" placeholder="John Doe" value={formData.fullName} onChange={(e) => setFormData({...formData, fullName: e.target.value})} />
                     </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-medium text-white/70 mb-1">Email Address *</label>
+                        <input required type="email" className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" placeholder="john@example.com" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-white/70 mb-1">Phone Number (10 Digits) *</label>
+                        <input 
+                          required 
+                          type="text" 
+                          inputMode="numeric"
+                          pattern="[0-9]{10}"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" 
+                          placeholder="e.g. 9876543210" 
+                          value={formData.phone} 
+                          onChange={(e) => handlePhoneChange(e.target.value)} 
+                        />
+                      </div>
+                    </div>
+
                     <div>
-                      <label className="block text-xs font-medium text-white/70 mb-1">Phone Number (10 Digits) *</label>
+                      <label className="block text-xs font-medium text-white/70 mb-1">LinkedIn Profile Link</label>
+                      <input type="url" className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" placeholder="https://linkedin.com/in/username" value={formData.linkedin} onChange={(e) => setFormData({...formData, linkedin: e.target.value})} />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-white/70 mb-1.5">Attach System Resume / CV (PDF, DOCX up to 5MB) *</label>
                       <input 
-                        required 
-                        type="text" 
-                        inputMode="numeric"
-                        pattern="[0-9]{10}"
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" 
-                        placeholder="e.g. 9876543210" 
-                        value={formData.phone} 
-                        onChange={(e) => handlePhoneChange(e.target.value)} 
+                        type="file" 
+                        ref={fileInputRef}
+                        className="hidden" 
+                        accept=".pdf,.doc,.docx"
+                        onChange={handleFileChange}
                       />
+                      
+                      {!attachedFile ? (
+                        <div 
+                          onClick={() => fileInputRef.current?.click()}
+                          className="border border-dashed border-white/20 hover:border-gold/50 rounded-xl py-3 px-4 text-center cursor-pointer bg-white/[0.02] hover:bg-white/[0.04] transition-all group"
+                        >
+                          <Upload className="w-5 h-5 text-white/40 group-hover:text-gold mx-auto mb-1 transition-colors" />
+                          <p className="text-xs text-white/80 font-medium">Click to select files from system browser</p>
+                          <p className="text-[11px] text-white/40 mt-0.5">Supports PDF, DOC, DOCX up to 5MB max file limits</p>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-2.5 px-3">
+                          <div className="flex items-center gap-3 overflow-hidden">
+                            <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center text-gold shrink-0 text-xs font-bold">
+                              {attachedFile.name.split('.').pop()?.toUpperCase()}
+                            </div>
+                            <div className="overflow-hidden">
+                              <p className="text-xs font-medium text-white truncate">{attachedFile.name}</p>
+                              <p className="text-[10px] text-white/40">{(attachedFile.size / (1024 * 1024)).toFixed(2)} MB</p>
+                            </div>
+                          </div>
+                          <button 
+                            type="button" 
+                            className="p-1 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-all"
+                            onClick={() => setAttachedFile(null)}
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-medium text-white/70 mb-1">Cover Note / Introduction</label>
+                      <textarea rows={2} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50 resize-none" placeholder="Tell us about yourself..." value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} />
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-medium text-white/70 mb-1">LinkedIn Profile Link</label>
-                    <input type="url" className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50" placeholder="https://linkedin.com/in/username" value={formData.linkedin} onChange={(e) => setFormData({...formData, linkedin: e.target.value})} />
+                  <div className="flex justify-end gap-3 pt-1">
+                    <Button variant="ghost" type="button" className="text-white hover:bg-white/5 hover:text-white" onClick={() => setActiveApplicationJob(null)}>
+                      Cancel
+                    </Button>
+                    <Button type="submit" disabled={formStatus === "submitting"} className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-6 min-w-[120px]">
+                      {formStatus === "submitting" ? "Transmitting..." : "Submit Profile"}
+                    </Button>
                   </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-white/70 mb-1.5">Attach System Resume / CV (PDF, DOCX up to 5MB) *</label>
-                    <input 
-                      type="file" 
-                      ref={fileInputRef}
-                      className="hidden" 
-                      accept=".pdf,.doc,.docx"
-                      onChange={handleFileChange}
-                    />
-                    
-                    {!attachedFile ? (
-                      <div 
-                        onClick={() => fileInputRef.current?.click()}
-                        className="border border-dashed border-white/20 hover:border-gold/50 rounded-xl p-5 text-center cursor-pointer bg-white/[0.02] hover:bg-white/[0.04] transition-all group"
-                      >
-                        <Upload className="w-6 h-6 text-white/40 group-hover:text-gold mx-auto mb-2 transition-colors" />
-                        <p className="text-xs text-white/80 font-medium">Click to select files from system browser</p>
-                        <p className="text-[11px] text-white/40 mt-1">Supports PDF, DOC, DOCX up to 5MB max file limits</p>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl p-3.5">
-                        <div className="flex items-center gap-3 overflow-hidden">
-                          <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center text-gold shrink-0 text-xs font-bold">
-                            {attachedFile.name.split('.').pop()?.toUpperCase()}
-                          </div>
-                          <div className="overflow-hidden">
-                            <p className="text-xs font-medium text-white truncate">{attachedFile.name}</p>
-                            <p className="text-[10px] text-white/40">{(attachedFile.size / (1024 * 1024)).toFixed(2)} MB</p>
-                          </div>
-                        </div>
-                        <button 
-                          type="button" 
-                          className="p-1 rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-all"
-                          onClick={() => setAttachedFile(null)}
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-white/70 mb-1">Cover Note / Introduction</label>
-                    <textarea rows={3} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-gold/50 resize-none" placeholder="Tell us about yourself..." value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} />
-                  </div>
-                </div>
-
-                <div className="flex justify-end gap-3 pt-2">
-                  <Button variant="ghost" type="button" className="text-white hover:bg-white/5 hover:text-white" onClick={() => setActiveApplicationJob(null)}>
-                    Cancel
-                  </Button>
-                  <Button type="submit" disabled={formStatus === "submitting"} className="bg-gold text-royal-black hover:bg-gold/90 font-semibold px-6 min-w-[120px]">
-                    {formStatus === "submitting" ? "Transmitting..." : "Submit Profile"}
-                  </Button>
-                </div>
-              </form>
-            )}
+                </form>
+              )}
+            </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* CTA */}
